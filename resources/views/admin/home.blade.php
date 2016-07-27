@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>@yield('title')</title>
-    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
+    {!! HTML::style('css/bootstrap/bootstrap.min.css') !!}
     <link rel="stylesheet" href="css/fonts/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/main/front.css">
+    <link rel="stylesheet" href="css/abcxyz/admin.css">
     <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
     <script type="text/javascript" src="js/bootstrap/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/main.js"></script>

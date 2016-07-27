@@ -18,5 +18,8 @@ Route::get('/detail', function(){
 	return view('article.detail');
 });
 Route::get('/abcxyz', function(){
-	return view('admin.home');
+	return view('admin.login');
+});
+Route::get('/abcd', function(){
+	return view('admin.main');
 });

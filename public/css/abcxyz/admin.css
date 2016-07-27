@@ -1,0 +1,92 @@
+
+.bt-logout > a, .bt-setting > a{
+	font-size: 1.2em;
+	background: #e6e6e6;
+	border: 1px solid #f8f8f8;
+	color: #e74c3c !important;
+}
+/*block*/
+.block .block-cap h2{
+	font-size: 1.2em;
+}
+
+/*AITEM*/
+.aitem{
+	display: block;
+	overflow: auto;
+	width: 100%;
+	position: relative;
+	font-size: 0.9em;
+	background: #fff;
+    padding: 10px 5px;
+}
+.aitem .athumb{
+	float: left;
+	width: 30%;
+	padding-right: 5px;
+}
+.aitem .athumb img{
+	width: 100%;
+}
+
+.aitem .acontent{
+	float: left;
+	width: 70%;
+	padding-left: 5px;
+}
+.aitem .acontent .atit{
+	
+}
+.aitem .acontent .atit h3{
+	padding: 0 0 10px 0;
+	margin: 0 0;
+	font-size: 1.4em;
+
+}
+.aitem .acontent .atit a{
+	font-weight: bold;
+	display: block;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.aitem .astatis{
+	padding: 5px 0;
+}
+.aitem .astatis span{
+	margin-right: 5px;
+}
+.aitem .astatis *{
+	color: #8e8a8a;
+	font-weight: bold;
+}
+.aitem .astatis span i{
+	color: #e74c3c;
+	font-weight: bold;
+}
+.aitem .aoption{
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+.aitem .aoption .bt_exp{
+	position: absolute;
+	right: 0;
+	background: #fff;
+	display: table;
+	padding: 1px 2px;
+}
+.aitem .aoption ._exp_dropdown{
+	position: absolute;
+	top: 20px;
+	right: 0;
+	background: #fff;
+	list-style: none;
+	padding: 10px;
+	margin: 0;
+}
+.aitem .aoption ._exp_dropdown a{
+	color: #333;
+	box-shadow: 1px 1px 1px #ddd;
+}
