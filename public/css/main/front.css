@@ -129,6 +129,7 @@ a:hover, a:focus{
 	background: #e74c3c;
 	color: #efefef;
 	font-family: "utm_helvebold", sans-serif;
+	text-transform: uppercase;
 }
 .block .block-cap h2:before{
 	content: '';
@@ -332,7 +333,7 @@ footer{
 	height: 5px;
 	background: #e74c3c;
 }
-#top-footer .bt-menu a:hover{
+#top-footer .bt-menu a:hover, #top-footer .bt-menu a:focus{
 	color: #ddd;
 }
 #bottom-footer{
@@ -351,7 +352,7 @@ footer{
 #bottom-footer .copyright p a{
 	font-weight: bold;
 }
-#bottom-footer .copyright p a:hover{
+#bottom-footer .copyright p a:hover,#bottom-footer .copyright p a:focus{
 	color: #fff;
 }
 #bottom-footer .bt-contact a{color: #000;}

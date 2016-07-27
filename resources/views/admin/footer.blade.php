@@ -2,39 +2,50 @@
     <section id="top-footer">
         <div class="container">
             <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
                     <div class="bt-logo">
                         <a href="#">
-                            <img src="images/front/logo.png" alt="">
+                            {!! HTML::image('images/front/logo.png', 'alt="e entertainment"') !!}
                         </a>
                     </div>
-                    <div class="bt-desc">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis modi fugit exercitationem voluptate totam ullam eum quidem a enim voluptatibus tenetur natus iure accusantium, et ratione velit, eligendi ex repellendus cupiditate magni cumque praesentium beatae consequatur, porro. Voluptas obcaecati reprehenderit, quos nemo doloremque eius dolorem, harum illo ad reiciendis consequuntur praesentium tenetur ea eligendi id nisi iure neque, possimus placeat, aliquid labore. Ex alias est accusamus, similique veritatis at nulla aut veniam atque assumenda sed dolores laborum facere quibusdam soluta esse repudiandae rem. Laudantium nihil dolore, culpa provident laborum cum maiores. Vel, nemo. Natus, vitae saepe at hic maiores odio.
+                    <div class="bt-desc" style="text-align: center;">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam, rem.
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
                     <div class="bt-menu">
                         <div class="bt-tit">
-                            <h3>OPTION</h3>
+                            <h3>menu</h3>
                         </div>
                         <ul>
-                            <li><a href="#">lorem ipsum dolor.</a></li>
-                            <li><a href="#">lorem ipsum dolor.</a></li>
-                            <li><a href="#">lorem ipsum dolor.</a></li>
-                            <li><a href="#">lorem ipsum dolor.</a></li>
+                            <li><a href="#">tất cả bài viết</a></li>
+                            <li><a href="#">bài viết mới</a></li>
+                            <li><a href="#">quản lý thành viên</a></li>
+                            <li><a href="#">kiểm soát truy cập</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
                     <div class="bt-menu">
                         <div class="bt-tit">
-                            <h3>OPTION</h3>
+                            <h3>giao diện</h3>
                         </div>
                         <ul>
-                            <li><a href="#">lorem ipsum dolor.</a></li>
-                            <li><a href="#">lorem ipsum dolor.</a></li>
-                            <li><a href="#">lorem ipsum dolor.</a></li>
-                            <li><a href="#">lorem ipsum dolor.</a></li>
+                            <li><a href="#">chỉnh sửa màu</a></li>
+                            <li><a href="#">chỉnh sửa cấu trúc</a></li>
+                            <li><a href="#">đến trang web</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                    <div class="bt-menu">
+                        <div class="bt-tit">
+                            <h3>liên kết</h3>
+                        </div>
+                        <ul>
+                            <li><a href="#">tin tức công nghệ</a></li>
+                            <li><a href="#">lương viết dung</a></li>
+                            <li><a href="#">fc bacelona</a></li>
                         </ul>
                     </div>
                 </div>

@@ -23,3 +23,6 @@ Route::get('/abcxyz', function(){
 Route::get('/abcd', function(){
 	return view('admin.main');
 });
+Route::get('/abcd/article/create', function(){
+    return view('admin.article_create');
+});
