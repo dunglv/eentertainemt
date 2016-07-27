@@ -12,5 +12,11 @@
 */
 
 Route::get('/', function () {
-    return view('home');
+    return view('layout.home');
+});
+Route::get('/detail', function(){
+	return view('article.detail');
+});
+Route::get('/abcxyz', function(){
+	return view('admin.home');
 });
