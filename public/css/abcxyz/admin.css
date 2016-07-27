@@ -18,7 +18,7 @@
 	position: relative;
 	font-size: 0.9em;
 	background: #fff;
-    padding: 10px 5px;
+	padding: 20px 5px 5px;
 }
 .aitem .athumb{
 	float: left;
@@ -77,16 +77,32 @@
 	display: table;
 	padding: 1px 2px;
 }
+.aitem .aoption .bt_exp:hover{
+	color: #e74c3c;
+	cursor: pointer;	
+}
 .aitem .aoption ._exp_dropdown{
 	position: absolute;
 	top: 20px;
 	right: 0;
 	background: #fff;
 	list-style: none;
-	padding: 10px;
+	padding: 0px;
 	margin: 0;
+	box-shadow: 1px 1px 1px #ddd;
+}
+.aitem .aoption ._exp_dropdown li{
+	padding: 2px 7px;
+	margin: 0;
+}
+.aitem .aoption ._exp_dropdown li:hover{
+	background: #eaeaea;
+}
+.aitem .aoption ._exp_dropdown li:hover a{
+	color: #e74c3c;
 }
 .aitem .aoption ._exp_dropdown a{
 	color: #333;
-	box-shadow: 1px 1px 1px #ddd;
+	white-space: nowrap;
+	font-size: 0.9em;
 }
