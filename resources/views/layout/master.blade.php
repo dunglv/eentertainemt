@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>@yield('title')</title>
-    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
-    <link rel="stylesheet" href="css/fonts/css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/main/front.css">
-    <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
-    <script type="text/javascript" src="js/bootstrap/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/main.js"></script>
+    {!! HTML::style('css/bootstrap/bootstrap.min.css') !!}
+    {!! HTML::style('css/fonts/css/font-awesome.min.css') !!}
+    {!! HTML::style('css/main/front.css') !!}
+    {!! HTML::script('js/jquery-1.11.1.min.js') !!}
+    {!! HTML::script('js/bootstrap/bootstrap.min.js') !!}
+    {!! HTML::script('js/main.js') !!}
     <meta name="viewport" content="width=device-width, user-scalable=yes, maximum-scale=1.0, minimum-scale=1.0">
     @yield('ostyle')
     @yield('ojs')

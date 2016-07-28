@@ -9,7 +9,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand logo-top" href="#"><img src="images/front/logo.png" alt="e entertainment"></a>
+                <a class="navbar-brand logo-top" href="#">{!! HTML::image('images/front/logo.png','alt="e entertainment"') !!}</a>
             </div>
     
             <!-- Collect the nav links, forms, and other content for toggling -->

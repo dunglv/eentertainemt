@@ -18,7 +18,7 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">quản lý bài viết<b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">viết bài mới</a></li>
+                            <li><a href="{{route('article.create')}}">viết bài mới</a></li>
                             <li><a href="#">tất cả bài viết</a></li>
                             <li><a href="#">thống kê bài viết</a></li>
                             <li><a href="#">phân loại</a></li>

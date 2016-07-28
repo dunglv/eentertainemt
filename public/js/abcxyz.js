@@ -1,5 +1,7 @@
 $(function(){
-    //tooltip item
+    //******************************
+    // SHOW TOOLTIP OPTION FOR ITEM
+    //******************************
     var $btchver = $('.bt_exp');
     $btchver.on('click', function(){
         var $aoddd = $(this).parent('.aoption').children('._exp_dropdown');
@@ -12,4 +14,164 @@ $(function(){
             $aoddd.removeClass('_aoexp');
         }
     });
+
+    //*******************************
+    // AUTO HANDLE URL AND VALIDATE
+    //*******************************
+    var $_txtT = $('._txtT');
+    var $_txtTr = $('._txtTr');
+    var $_btnRef = $('.getAlias');
+   
+    $_txtTr.on({
+        'focus': function(){
+            $(this).removeClass('_overlay');
+        },
+        'focusout': function(){
+            $(this).addClass('_overlay _edited');
+            var self_j = change_alias($(this).val());
+            $(this).val(self_j);
+    }});
+    
+    $_txtT.on('focusout', function(){
+        var $vlStr = $_txtT.val();
+        if($vlStr.length > 0){
+            if(!$_txtTr.hasClass('_edited')){
+                $vlStr = change_alias($vlStr);
+                $_txtTr.val($vlStr);
+            }
+        }else{
+            $_txtT.css({'border-color':'red'});
+        }
+        $_btnRef.on('click', function(){
+            $vlStr = change_alias($vlStr);
+            $_txtTr.val($vlStr);
+        });
+    }); 
+
+    //*****************************************
+    // VALIDATE FORM CREATE ARTICLE
+    //*****************************************
+
+    var $btnAtc = $('.add-article');
+    $btnAtc.on('click', function(event){
+        var atitle = a_form_create.a_title.value;
+        var aurl = a_form_create.a_url.value;
+        var acate = a_form_create.a_cate.value;
+        var atype = a_form_create.a_type.value;
+        var adesc = a_form_create.a_desc.value;
+        var acontent = CKEDITOR.instances.a_content_id.getData();//$('textarea#a_content_id').val();
+        var athumb = a_form_create.a_thumbnail.value;
+        var atag = a_form_create.a_tag.value;//a_form_create.a_tag.value;
+        var astatus = a_form_create.a_status.value;
+
+        if(atitle.length==0||aurl.length==0||adesc.length==0||acontent.length==0||athumb.length==0||atag.length==0){
+            alert('vui lòng không để trống mục nào');
+            return false
+        }
+        if(atitle.length < 10 || atitle.length > 100){
+            alert('tiêu đề quá ngắn hoặc quá dài (tối thiểu 10 và tối đa 100 ký tự)');
+            return false;
+        }
+
+        if(aurl.length < 5 || aurl.length > 200){
+            alert('url quá ngắn hoặc quá dài (tối thiểu 5 và tối đa 150 ký tự)');
+            return false;
+        }
+        if(adesc.length < 10 || adesc.length > 1000){
+            alert('mô tả quá ngắn hoặc quá dài (tối thiểu 5 và tối đa 300 ký tự)');
+            return false;
+        }
+        if(acontent.length < 30){
+            alert('nội dung quá ngắn (tối thiểu 30 ký tự)');
+            return false;
+        }
+
+        return true;
+    });
+
+    //***********************
+    // TAG HANDLE
+    //***********************
+
+    var $add_tag = $('.add-tag');
+    var $a_w_tag = $('.add-wrap-tag');
+    var $in_tag = $('.e-tag');
+    var id = 1;
+    $add_tag.on('click', function(){
+        $in_tag.focus();
+    });
+
+    var tagfield = '';
+    $in_tag.on('keyup', function(e){
+        if(e.keyCode == 188){
+            // alert();
+            tag = $in_tag.val().replace(',', '').trim();
+            $a_w_tag.append('<span id="n_tg_'+id+'" class="n-tg">'+tag+'<i class="_t_close fa fa-times"></i></span>');
+            $in_tag.val('').focus();
+            var $remove_tag = $('._t_close');
+
+            tagfield = tagfield+tag+','; //gán tag để nhập vào input hidden
+            $('#a_tag_id').val(tagfield); // set giá trị tag hidden
+
+            $remove_tag.on('click', function(e){
+                var $rmt_t = $(this).parent('.n-tg');
+                var rmt_tt = $(this).parent('.n-tg').text(); //lấy tag cần replace
+                var taglist = $('#a_tag_id').val();//lấy tag list hiện tại để replace
+                $('#'+$rmt_t.attr('id')).remove(); //remove tag html
+
+                tagfield = tagfield.replace(rmt_tt+',', ''); //replace trong input hidden
+                $('#a_tag_id').val(tagfield); // set lại tag cho input hidden
+                
+            });
+
+            id++;
+        }
+    });
+
+    //*********************************************
+    // SIDE BAR HANDLE
+    //*********************************************
+    var $side = $('.sidebar');
+    $('.col-expand').prepend('<span class="collapse-sidebar" title="collapse sidebar"><i class="fa fa-chevron-right"></i></span>');
+    var $btncollapse = $('.collapse-sidebar');
+    $btncollapse.on('click', function(){
+        if(!$(this).hasClass('_collapsed')){
+            var $fExpand = $(this).parents('#create_aricle').find('.col-expand');
+            var $fCollapse = $(this).parents('#create_aricle').find('.col-collapse');
+            $(this).html('<i class="fa fa-chevron-left"></i>');
+            $fExpand.attr('class', 'col-expand col-xs-12 col-sm-12 col-md-12 col-lg-12');
+            $fCollapse.attr('class', 'col-collapse sidebar col-xs-0 col-sm-0 col-md-0 col-lg-0');
+            $fCollapse.css({'display':'none'});
+            $(this).addClass('_collapsed');
+        }else{
+            $(this).removeClass('_collapsed');
+            var $fExpand = $(this).parents('#create_aricle').find('.col-expand');
+            var $fCollapse = $(this).parents('#create_aricle').find('.col-collapse');
+            $(this).html('<i class="fa fa-chevron-right"></i>');
+            $fExpand.attr('class', 'col-expand col-xs-12 col-sm-12 col-md-8 col-lg-8');
+            $fCollapse.attr('class', 'col-collapse sidebar col-xs-12 col-sm-12 col-md-4 col-lg-4');
+            $fCollapse.css({'display':'block'});
+        }
+        
+
+    });
 });
+
+function change_alias( alias )
+{
+    var str = alias;
+    str= str.toLowerCase(); 
+    str= str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ |ặ|ẳ|ẵ/g,"a"); 
+    str= str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g,"e"); 
+    str= str.replace(/ì|í|ị|ỉ|ĩ/g,"i"); 
+    str= str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g,"o"); 
+    str= str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g,"u"); 
+    str= str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g,"y"); 
+    str= str.replace(/đ/g,"d"); 
+    str= str.replace(/!|@|%|\^|\*|\(|\)|\+|\=|\<|\>|\?|\/|,|\.|\:|\;|\'| |\"|\&|\#|\[|\]|~|$|_/g,"-");
+    /* tìm và thay thế các kí tự đặc biệt trong chuỗi sang kí tự - */
+    str= str.replace(/-+-/g,"-"); //thay thế 2- thành 1-
+    str= str.replace(/^\-+|\-+$/g,""); 
+    //cắt bỏ ký tự - ở đầu và cuối chuỗi 
+    return str;
+}

@@ -27,12 +27,18 @@ header input, header .btn{
 	font-family: "utm_helveregular", sans-serif;
 	font-size: 1em;
 }
+.form-field input[type='text']._overlay, .form-field input[type="password"]._overlay, .form-field textarea._overlay{
+	background: #ddd;
+	opacity: 0.7;
+	cursor: move;
+}
 .form-field input[type='text']:focus, .form-field input[type='password']:focus, 
 .form-field textarea:focus, .form-field button:focus, .form-field select:focus{
 	outline: none;
 	border-color: #1abc9c;
 	box-shadow: none;
 }
+
 .form-field button, .form-field.btn{
 	
 }
@@ -272,12 +278,33 @@ header input, header .btn{
 	height: auto;
 	border: 0;
 }
+.form-create .group-btn{
+	position: relative;
+}
+.form-create .group-btn .getAlias{
+	position: absolute;
+	top: 0;
+	right: 0;
+	background: #c5c5c5;
+	padding: 3px;
+	bottom: 0;
+	line-height: 28px;
+	height: 100%;
+	border: 1px solid #c5c5c5;
+	width: 26px;
+	color: #e74c3c;
+	text-align: center;
+	cursor: pointer;
+}
+.form-create .group-btn .getAlias:hover{
+	background: #ddd;
+}
 .form-create .a-tag .in-a-tag{
 	padding: 5px;
 	background: #fff;
 }
 .form-create .a-tag .in-a-tag span{
-	padding: 6px 5px;
+	padding: 6px 5px 6px 10px;
 	background: #ddd;
 	margin-right: 5px;
 	display: table;
@@ -285,6 +312,16 @@ header input, header .btn{
 }
 .form-create .a-tag .in-a-tag input{
 	border: 0;
+}
+.form-create .a-tag .in-a-tag ._t_close:hover{
+	color: #e74c3c;
+	cursor: pointer;
+}
+.form-create .a-tag ._finfor{
+	font-size: 0.75em;
+	color: #058c71;
+	opacity: 0.9;
+	padding: 5px 6px;
 }
 .form-create  button, .form-create .btn{
 	background: #e74c3c;
@@ -308,15 +345,15 @@ header input, header .btn{
 #create_aricle .ablock-list ul{
 	text-align: left;
 }
-.sidebar{
+.col-expand{
 	position: relative;
 }
-.sidebar .collapse-sidebar{
+.col-expand .collapse-sidebar{
 	padding: 5px;
 	display: block;
 	position: absolute;
 	top: 0;
-	left: 15px;
+	right: 15px;
 	z-index: 1;
 	height: 30px;
 	font-size: 1.1em;
@@ -324,7 +361,7 @@ header input, header .btn{
 	color: #e74c3c;
 	background: #ddd;
 }
-.sidebar .collapse-sidebar:hover{
+.col-expand .collapse-sidebar:hover{
 	cursor: pointer;
     color: #16a085;
 }

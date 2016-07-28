@@ -20,9 +20,15 @@ Route::get('/detail', function(){
 Route::get('/abcxyz', function(){
 	return view('admin.login');
 });
-Route::get('/abcd', function(){
-	return view('admin.main');
-});
-Route::get('/abcd/article/create', function(){
-    return view('admin.article_create');
-});
+Route::get('/abcd', [
+	'as' => 'admin.home',
+	'uses' => 'AdminController@index'
+	]);
+Route::get('/abcd/article/create', [
+		'as' => 'article.create',
+		'uses' => 'ArticleController@create'
+	]);
+Route::post('/abcd/article/create', [
+		'as' => 'article.store',
+		'uses' => 'ArticleController@store'
+		]);
