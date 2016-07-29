@@ -73,6 +73,7 @@
 							<!-- emd item -->
 						</div>
 					</div>
+					
 					<div class="block ablock-newest">
 						<div class="block-cap">
 							<h2>BÀI VIẾT MỚI NHẤT</h2>
@@ -200,7 +201,58 @@
 							<!-- emd item -->
 						</div>
 					</div>
+					@foreach($categories as $cate)
+					<div class="block ablock-newest">
+						<div class="block-cap">
+							<h2>{{$cate->title}}</h2>
+						</div>
+						<div class="block-content">
+							@if(count($cate->articles)==0)
+								<div style="">Chủ đề này chưa có bài viết nào</div>
+							@else
+								@foreach($cate->articles as $a)
+								<div id="aitem_{{$a->id}}" class="aitem">
+									<div class="aitem-wrapper">
+										<div class="athumb">
+											@if(!empty($a->thumbnail))
+												{!! HTML::image($a->thumbnail, $a->title) !!}
+											@else
+												{!! HTML::image('/images/items/item.jpg', $a->title) !!}
+											@endif
+										</div>
+										<div class="acontent">
+											<div class="atit">
+												<h3><a href="{{url($a->url.'-'.$a->id)}}">{{$a->title}}</a></h3>
+											</div>
+											<div class="adesc">
+												{{substr($a->description,0, 200).'...'}}
+											</div>
+											<div class="astatis">
+												<span><i class="fa fa-eye"></i>{{$a->viewcount}}</span>
+												<span><i class="fa fa-thumbs-o-up"></i>{{$a->likecount}}</span>
+												<span><i class="fa fa-thumbs-o-down"></i>{{$a->dislikecount}}</span>
+											</div>
+										</div>
+									</div>
+									<!-- end aitem wrapper-->
+									<div class="aop aoption">
+										<span id="bt_exp_{{$a->id}}" class="bt_exp"><i class="fa fa-chevron-down"></i></span>
+										<ul id="_exp_dropdown_{{$a->id}}" class="_exp_dropdown">
+											<li><a href="#">Xóa</a></li>
+											<li><a href="#">Chỉnh sửa</a></li>
+											<li><a href="#">Disable</a></li>
+										</ul>
+									</div>
+								</div>
+								<!-- emd item -->
+								@endforeach
+							@endif
+						</div>
+					</div>
+					<!-- end block -->
+					@endforeach
 				</div>
+				<!-- ***************************END MAIN***************************** -->
 				<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
 					<div class="block ablock-time">
 						<div class="in-time">

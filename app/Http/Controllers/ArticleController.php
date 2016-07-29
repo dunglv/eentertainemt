@@ -10,6 +10,8 @@ use App\Category;
 use Illuminate\Support\Facades\Input;
 class ArticleController extends Controller
 {
+
+
     public function create()
     {
     	$cate = Category::all();
@@ -22,9 +24,8 @@ class ArticleController extends Controller
     	if (Input::file('a_thumbnail')->isValid()) {
     		$path = public_path().'/images/items/';
 	    	$extension = Input::file('a_thumbnail')->getClientOriginalExtension();
-	    	$filename = rand(10000,999999).'.'.$extension;
+	    	$filename = date('Ymd').'_'.md5(rand(100,10000000)).'.'.$extension;
     		Input::file('a_thumbnail')->move($path, $filename);
-
     	}
     	// $filename = Input::file('a_thumbnail');
     	// echo '<pre>';
@@ -32,19 +33,34 @@ class ArticleController extends Controller
     	// echo '</pre>';
 
     	$article = new Article;
-    	$article->categories_id = Input::get('a_cate');
-    	$article->members_id = 3;
+    	$article->category_id = Input::get('a_cate');
+    	$article->member_id = 3;
     	$article->title = Input::get('a_title');
     	$article->url = Input::get('a_url');
     	$article->type = Input::get('a_type');
     	$article->description = Input::get('a_desc');
     	$article->content = Input::get('a_content');
-    	$article->thumbnail = $path.$filename ;
+    	$article->thumbnail = '/images/items/'.$filename ;
     	$article->tag = Input::get('a_tag');
     	$article->status = Input::get('a_status');
     	$article->save();
     	return redirect()->route('article.create');
     }
 
+
+    public function checkexists()
+    {
+    	$title = Input::get('a_title_chk');
+    	$url = Input::get('a_url_chk');
+    	$titleck = Article::where('title','=', $title);
+    	$urlck = Article::where('url','=', $url);
+    	if($titleck->count() > 0){
+    		return '_e_title';
+    	}elseif($urlck->count() > 0){
+    		return '_e_url';
+    	}else{
+    		return '_ok';
+    	}
+    }
 
 }

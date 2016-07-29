@@ -14,8 +14,8 @@ class CreateArticlesTable extends Migration
     {
         Schema::create('articles', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('categories_id');
-            $table->integer('members_id');
+            $table->integer('category_id');
+            $table->integer('member_id');
             $table->string('title', 200);
             $table->string('url', 200);
             $table->string('type')->default('normal');

@@ -32,3 +32,7 @@ Route::post('/abcd/article/create', [
 		'as' => 'article.store',
 		'uses' => 'ArticleController@store'
 		]);
+Route::post('/abcd/article/checkexists', [
+		'as' => 'article.checkexists',
+		'uses' => 'ArticleController@checkexists'
+		]);

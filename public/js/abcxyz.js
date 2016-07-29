@@ -30,6 +30,7 @@ $(function(){
             $(this).addClass('_overlay _edited');
             var self_j = change_alias($(this).val());
             $(this).val(self_j);
+            ajaxCheckExists($(this), 'a_url_chk', $(this).val(), '_e_url', 'form-url', 'url đã trùng khớp. vui lòng kiểm tra lại');
     }});
     
     $_txtT.on('focusout', function(){
@@ -39,8 +40,11 @@ $(function(){
                 $vlStr = change_alias($vlStr);
                 $_txtTr.val($vlStr);
             }
+            $this = $(this);
+            ajaxCheckExists($this, 'a_title_chk', $this.val(), '_e_title', 'form-title', 'tiêu tồn tại. vui lòng kiểm tra lại');
+            $_txtT.css({'border-color':'#16a085'});
         }else{
-            $_txtT.css({'border-color':'red'});
+            $_txtT.css({'border-color':'#e74c3c'});
         }
         $_btnRef.on('click', function(){
             $vlStr = change_alias($vlStr);
@@ -51,7 +55,18 @@ $(function(){
     //*****************************************
     // VALIDATE FORM CREATE ARTICLE
     //*****************************************
+    
+    var errfile = true;
+    $('#a_thumbnail_id').bind('change', function() {
+          var fsize = this.files[0].size/1024;
+          if(fsize > 2048){
+            errfile = false;
+          }else{
+            errfile = true;
+          }
+        return errfile;
 
+        });
     var $btnAtc = $('.add-article');
     $btnAtc.on('click', function(event){
         var atitle = a_form_create.a_title.value;
@@ -64,12 +79,16 @@ $(function(){
         var atag = a_form_create.a_tag.value;//a_form_create.a_tag.value;
         var astatus = a_form_create.a_status.value;
 
+
         if(atitle.length==0||aurl.length==0||adesc.length==0||acontent.length==0||athumb.length==0||atag.length==0){
             alert('vui lòng không để trống mục nào');
             return false
         }
         if(atitle.length < 10 || atitle.length > 100){
             alert('tiêu đề quá ngắn hoặc quá dài (tối thiểu 10 và tối đa 100 ký tự)');
+            return false;
+        }else  if($('#a_title_id').hasClass('_error')){
+            alert('có lỗi ở tiêu đề. vui lòng kiểm tra lại');
             return false;
         }
 
@@ -83,6 +102,16 @@ $(function(){
         }
         if(acontent.length < 30){
             alert('nội dung quá ngắn (tối thiểu 30 ký tự)');
+            return false;
+        }
+        // check size of image
+        if(errfile == false){
+            alert('ảnh quá lớn (tối đa 2Mb). vui lòng kiểm tra lại');
+            return false;
+        }
+        //check extension of image
+        if(fileValidate(athumb)==false){
+            alert('tệp '+athumb+' cần định dạng JEPG/JPG/PNG/BMP/GIF. vui lòng kiểm tra lại');
             return false;
         }
 
@@ -103,9 +132,10 @@ $(function(){
 
     var tagfield = '';
     $in_tag.on('keyup', function(e){
-        if(e.keyCode == 188){
+        var regCode = /[^a-zA-Z0-9\s|à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ|è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ|ì|í|ị|ỉ|ĩ|ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ|ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ|ỳ|ý|ỵ|ỷ|ỹ|đ]+/g;
+        if(e.keyCode == 188 && $(this).val().replace( regCode, '').length > 1){
             // alert();
-            tag = $in_tag.val().replace(',', '').trim();
+            tag = $in_tag.val().replace(regCode, '').trim();
             $a_w_tag.append('<span id="n_tg_'+id+'" class="n-tg">'+tag+'<i class="_t_close fa fa-times"></i></span>');
             $in_tag.val('').focus();
             var $remove_tag = $('._t_close');
@@ -174,4 +204,52 @@ function change_alias( alias )
     str= str.replace(/^\-+|\-+$/g,""); 
     //cắt bỏ ký tự - ở đầu và cuối chuỗi 
     return str;
+}
+
+function ajaxCheckExists(inputCheck, varCheck, valueCheck, compareData, classForm, msgError){
+    var jsonData = {};
+    jsonData[varCheck] = valueCheck;
+    jsonData['_token'] = $('input[name=_token]').val();
+    $.ajax({
+            type: 'POST',
+            url: '/abcd/article/checkexists',
+            data: jsonData,
+            success: function(data){
+                if(data === compareData){
+                    if(!inputCheck.hasClass('_error')){
+                        inputCheck.addClass('_error');
+                        inputCheck.parents('.'+classForm).append('<p style="margin: 5px;color: #ff0000;font-size: 0.7em;">'+msgError+'</p>'); 
+                    }
+                }else{
+                    inputCheck.removeClass('_error');
+                    inputCheck.parents('.'+classForm).find('p').remove();
+                }
+                
+            },
+            error: function(){
+                console.log('fail');
+            }
+        });
+}
+
+var _validFileExtensions = [".jpg", ".jpeg", ".bmp", ".gif", ".png"];    
+function fileValidate(fileName) {
+    var arrInputs = fileName;
+        if (fileName.length > 0) {
+            var blnValid = false;
+            for (var j = 0; j < _validFileExtensions.length; j++) {
+                var sCurExtension = _validFileExtensions[j];
+                if (fileName.substr(fileName.length - sCurExtension.length, sCurExtension.length).toLowerCase() == sCurExtension.toLowerCase()) {
+                    blnValid = true;
+                    break;
+                }
+            }
+            
+            if (!blnValid) {
+                return false;
+            }
+        }
+   
+  
+    return true;
 }

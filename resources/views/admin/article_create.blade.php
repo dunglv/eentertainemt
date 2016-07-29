@@ -1,6 +1,7 @@
 @extends('admin.home')
 @section('title', 'viết bài mới')
 @section('ojs', HTML::script('/lib/ckeditor/ckeditor.js'))
+@section('ostyle', HTML::style('/css/abcxyz/ckeditor.css'))
 @section('body')
     <section id="create_aricle">
         <div class="container">
@@ -22,11 +23,11 @@
                                     'autocomplete' => 'off'
                                 ]) 
                                 !!}
-                                    <div class="form-group">
+                                    <div class="form-group form-title">
                                         <label for="">tiêu đề</label>
                                         <input type="text" name="a_title" class="form-control _txtT" id="a_title_id" placeholder="tiêu đề bài viết...">
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group form-url">
                                         <label for="">segment of url</label>
                                         <div class="group-btn">
                                             <input type="text" name="a_url" class="form-control _txtTr _overlay" id="a_url_id" placeholder="segment hiển thị url (tieu-de-bai-viet)">
@@ -96,10 +97,9 @@
                         </div>
                         <div class="block-content ablock-list">
                             <ul>
-                                <li><a href="#">Lorem ipsum dolor sit amet.</a></li>
-                                <li><a href="#">Lorem ipsum dolor sit amet.</a></li>
-                                <li><a href="#">Lorem ipsum dolor sit amet.</a></li>
-                                <li><a href="#">Lorem ipsum dolor sit amet.</a></li>
+                                @foreach($categories as $c)
+                                    <li><a href="{{url('chu-de/'.$c->url)}}">{{$c->title}}</a></li>
+                                @endforeach
                             </ul>
                         </div>
                     </div>
@@ -113,7 +113,8 @@
         CKEDITOR.replace( 'a_content_id', {
             language: 'vi',
             entities: false,
-            htmlEncodeOutput: false
+            htmlEncodeOutput: false,
+            // stylesSet: window.location.host+'/css/abcxyz/ckeditor.css'
         });
     </script>
 @stop
