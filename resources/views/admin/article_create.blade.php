@@ -51,7 +51,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group form-type">
                                         <label for="">thể loại bài viết</label>
                                         <div class="pad opt_radio">
                                             <label for="a_type_normal"><input type="radio" id="a_type_normal" name="a_type" checked="true" value="normal">thông thường</label>
@@ -92,7 +92,7 @@
                                     </div>
                                     <button type="submit" class="btn btn-primary add-article">tạo mới</button>
                                     <a class="btn btn-primary" href="{{url('/abcd')}}">hủy bỏ</a>
-s                                {!! Form::close() !!}
+                                {!! Form::close() !!}
                             </div>
                         </div>
                     </div>

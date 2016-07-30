@@ -52,7 +52,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    <div id="{{$article[0]->idv}}s" class="form-group form-type">
                                         <label for="">thể loại bài viết</label>
                                         <div class="pad opt_radio">
                                             <label for="a_type_normal"><input @if($article[0]->type=='normal') checked @endif type="radio" id="a_type_normal" name="a_type" checked="true" value="normal">thông thường</label>
@@ -60,6 +60,15 @@
                                             <label for="a_type_video"><input @if($article[0]->type=='video') checked @endif type="radio" id="a_type_video" name="a_type" value="video">video</label>
                                         </div>
                                     </div>
+                                    @if($article[0]->type=='video')
+                                        <div class="form-group form-idv">
+                                            <label for="">id video youtube (https://www.youtube.com/watch?v=<strong style="color:red">Zs-t1Iwou_s</strong> hoặc https://youtu.be/<strong style="font-size: 0.7em;color:red">GOOq_wCAaoQ</strong>)</label>
+                                            <div class="group-btn">
+                                                <input type="text" name="a_idv" class="form-control" id="a_idv_id" value="{{$article[0]->idv}}" placeholder="id video youtube">
+                                            </div>
+                                        </div>
+                                    @endif
+
                                     <div class="form-group">
                                         <label for="">mô tả</label>
                                         <textarea class="form-control" name="a_desc" id="" cols="30" rows="5">{{$article[0]->description}}</textarea>

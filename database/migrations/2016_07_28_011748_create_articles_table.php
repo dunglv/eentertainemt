@@ -19,6 +19,7 @@ class CreateArticlesTable extends Migration
             $table->string('title', 200);
             $table->string('url', 200);
             $table->string('type')->default('normal');
+            $table->string('idv')->default('nQEsip6B9SQ')->nullable();
             $table->string('thumbnail', 100);
             $table->text('description');
             $table->text('content');

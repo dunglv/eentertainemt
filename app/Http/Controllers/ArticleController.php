@@ -36,7 +36,12 @@ class ArticleController extends Controller
     	$article->member_id = 3;
     	$article->title = Input::get('a_title');
     	$article->url = Input::get('a_url');
-    	$article->type = Input::get('a_type');
+        $article->type = Input::get('a_type');
+    	if(Input::get('a_type')=='video'){
+            $article->idv = Input::get('a_idv');
+        }else{
+            $article->idv = '';
+        }
     	$article->description = Input::get('a_desc');
     	$article->content = Input::get('a_content');
     	$article->thumbnail = '/images/items/'.$filename ;
@@ -106,6 +111,11 @@ class ArticleController extends Controller
         $article->title = Input::get('a_title');
         $article->url = Input::get('a_url');
         $article->type = Input::get('a_type');
+        if(Input::get('a_type')=='video'){
+            $article->idv = Input::get('a_idv');
+        }else{
+            $article->idv = '';
+        }
         $article->description = Input::get('a_desc');
         $article->content = Input::get('a_content');
         $article->thumbnail = $thumb;
