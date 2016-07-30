@@ -5,72 +5,47 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
-					
 					<div class="block ablock-newest">
 						<div class="block-cap">
 							<h2>KIỂM DUYỆT BÀI VIẾT</h2>
 						</div>
 						<div class="block-content">
-							<div class="aitem">
-								<div class="aitem-wrapper">
-									<div class="athumb">
-										{!! HTML::image('/images/items/item.jpg') !!}
-									</div>
-									<div class="acontent">
-										<div class="atit">
-											<h3><a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum sunt rerum reiciendis voluptas, similique dignissimos quis nobis quos nesciunt cum.</a></h3>
+							@if($a_articles->count() == 0)
+								<div>không có bài viết nào cần kiểm duyệt</div>
+							@else
+								@foreach($a_articles as $a_a)
+								<div id="a_item_{{$a_a->id}}" class="aitem aitem_{{$a_a->id}}">
+									<div class="aitem-wrapper">
+										<div class="athumb">
+											{!! HTML::image($a_a->thumbnail, $a_a->title) !!}
 										</div>
-										<div class="adesc">
-											Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim nesciunt necessitatibus vero expedita sit asperiores, accusamus dolorum quas nisi! Iste.
-										</div>
-										<div class="astatis">
-											<span><i class="fa fa-eye"></i>100</span>
-											<span><i class="fa fa-thumbs-o-up"></i>100</span>
-											<span><i class="fa fa-thumbs-o-down"></i>100</span>
-										</div>
-									</div>
-								</div>
-								<!-- end aitem wrapper-->
-								<div class="aop aoption">
-									<span class="bt_exp"><i class="fa fa-chevron-down"></i></span>
-									<ul class="_exp_dropdown">
-										<li><a href="#">Xóa</a></li>
-										<li><a href="#">Chỉnh sửa</a></li>
-										<li><a href="#">Disable</a></li>
-									</ul>
-								</div>
-							</div>
-							<!-- emd item -->
-							<div class="aitem">
-								<div class="aitem-wrapper">
-									<div class="athumb">
-										{!! HTML::image('/images/items/item.jpg') !!}
-									</div>
-									<div class="acontent">
-										<div class="atit">
-											<h3><a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum sunt rerum reiciendis voluptas, similique dignissimos quis nobis quos nesciunt cum.</a></h3>
-										</div>
-										<div class="adesc">
-											Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim nesciunt necessitatibus vero expedita sit asperiores, accusamus dolorum quas nisi! Iste.
-										</div>
-										<div class="astatis">
-											<span><i class="fa fa-eye"></i>100</span>
-											<span><i class="fa fa-thumbs-o-up"></i>100</span>
-											<span><i class="fa fa-thumbs-o-down"></i>100</span>
+										<div class="acontent">
+											<div class="atit">
+												<h3><a href="{{$a_a->url}}">{{$a_a->title}}</a></h3>
+											</div>
+											<div class="adesc">
+												{{substr($a_a->description, 0, 200).'...'}}
+											</div>
+											<div class="astatis">
+												<span><i class="fa fa-eye"></i>{{$a_a->viewcount}}</span>
+												<span><i class="fa fa-thumbs-o-up"></i>{{$a_a->likecount}}</span>
+												<span><i class="fa fa-thumbs-o-down"></i>{{$a_a->dislikecount}}</span>
+											</div>
 										</div>
 									</div>
+									<!-- end aitem wrapper-->
+									<div class="aop aoption">
+										<span id="a_bt_exp_{{$a_a->id}}" class="bt_exp"><i class="fa fa-chevron-down"></i></span>
+										<ul class="_exp_dropdown">
+											<li data-id="a_del_{{$a_a->id}}" class="a_del"><a href="#">Xóa</a></li>
+											<li><a href="{{route('article.edit', [$a_a->url,'type'=>'post','fn'=>'edit','post'=>$a_a->id])}}">Chỉnh sửa</a></li>
+											<li><a href="#">Disable</a></li>
+										</ul>
+									</div>
 								</div>
-								<!-- end aitem wrapper-->
-								<div class="aop aoption">
-									<span class="bt_exp"><i class="fa fa-chevron-down"></i></span>
-									<ul class="_exp_dropdown">
-										<li><a href="#">Xóa</a></li>
-										<li><a href="#">Chỉnh sửa</a></li>
-										<li><a href="#">Disable</a></li>
-									</ul>
-								</div>
-							</div>
-							<!-- emd item -->
+								<!-- emd item -->
+								@endforeach
+							@endif
 						</div>
 					</div>
 					
@@ -79,126 +54,42 @@
 							<h2>BÀI VIẾT MỚI NHẤT</h2>
 						</div>
 						<div class="block-content">
-							<div class="aitem">
-								<div class="aitem-wrapper">
-									<div class="athumb">
-										{!! HTML::image('/images/items/item.jpg') !!}
-									</div>
-									<div class="acontent">
-										<div class="atit">
-											<h3><a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum sunt rerum reiciendis voluptas, similique dignissimos quis nobis quos nesciunt cum.</a></h3>
+							@if($n_articles->count() == 0)
+								<div>chưa có bài viết nào</div>
+							@else
+								@foreach($n_articles as $a_n)
+								<div id="n_item_{{$a_n->id}}" class="aitem aitem_{{$a_n->id}}">
+									<div class="aitem-wrapper">
+										<div class="athumb">
+											{!! HTML::image($a_n->thumbnail, $a_n->title) !!}
 										</div>
-										<div class="adesc">
-											Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim nesciunt necessitatibus vero expedita sit asperiores, accusamus dolorum quas nisi! Iste.
-										</div>
-										<div class="astatis">
-											<span><i class="fa fa-eye"></i>100</span>
-											<span><i class="fa fa-thumbs-o-up"></i>100</span>
-											<span><i class="fa fa-thumbs-o-down"></i>100</span>
-										</div>
-									</div>
-								</div>
-								<!-- end aitem wrapper-->
-								<div class="aop aoption">
-									<span class="bt_exp"><i class="fa fa-chevron-down"></i></span>
-									<ul class="_exp_dropdown">
-										<li><a href="#">Xóa</a></li>
-										<li><a href="#">Chỉnh sửa</a></li>
-										<li><a href="#">Disable</a></li>
-									</ul>
-								</div>
-							</div>
-							<!-- emd item -->
-							<div class="aitem">
-								<div class="aitem-wrapper">
-									<div class="athumb">
-										{!! HTML::image('/images/items/item.jpg') !!}
-									</div>
-									<div class="acontent">
-										<div class="atit">
-											<h3><a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum sunt rerum reiciendis voluptas, similique dignissimos quis nobis quos nesciunt cum.</a></h3>
-										</div>
-										<div class="adesc">
-											Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim nesciunt necessitatibus vero expedita sit asperiores, accusamus dolorum quas nisi! Iste.
-										</div>
-										<div class="astatis">
-											<span><i class="fa fa-eye"></i>100</span>
-											<span><i class="fa fa-thumbs-o-up"></i>100</span>
-											<span><i class="fa fa-thumbs-o-down"></i>100</span>
+										<div class="acontent">
+											<div class="atit">
+												<h3><a href="{{$a_n->url}}">{{$a_n->title}}</a></h3>
+											</div>
+											<div class="adesc">
+												{{substr($a_n->description, 0, 200).'...'}}
+											</div>
+											<div class="astatis">
+												<span><i class="fa fa-eye"></i>{{$a_n->viewcount}}</span>
+												<span><i class="fa fa-thumbs-o-up"></i>{{$a_n->likecount}}</span>
+												<span><i class="fa fa-thumbs-o-down"></i>{{$a_n->dislikecount}}</span>
+											</div>
 										</div>
 									</div>
-								</div>
-								<!-- end aitem wrapper-->
-								<div class="aop aoption">
-									<span class="bt_exp"><i class="fa fa-chevron-down"></i></span>
-									<ul class="_exp_dropdown">
-										<li><a href="#">Xóa</a></li>
-										<li><a href="#">Chỉnh sửa</a></li>
-										<li><a href="#">Disable</a></li>
-									</ul>
-								</div>
-							</div>
-							<!-- emd item -->
-							<div class="aitem">
-								<div class="aitem-wrapper">
-									<div class="athumb">
-										{!! HTML::image('/images/items/item.jpg') !!}
-									</div>
-									<div class="acontent">
-										<div class="atit">
-											<h3><a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum sunt rerum reiciendis voluptas, similique dignissimos quis nobis quos nesciunt cum.</a></h3>
-										</div>
-										<div class="adesc">
-											Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim nesciunt necessitatibus vero expedita sit asperiores, accusamus dolorum quas nisi! Iste.
-										</div>
-										<div class="astatis">
-											<span><i class="fa fa-eye"></i>100</span>
-											<span><i class="fa fa-thumbs-o-up"></i>100</span>
-											<span><i class="fa fa-thumbs-o-down"></i>100</span>
-										</div>
+									<!-- end aitem wrapper-->
+									<div id="new_aop_{{$a_n->id}}" class="aop aoption">
+										<span id="n_bt_exp_{{$a_n->id}}" class="bt_exp"><i class="fa fa-chevron-down"></i></span>
+										<ul class="_exp_dropdown">
+											<li data-id="n_del_{{$a_n->id}}" class="a_del"><a href="#">Xóa</a></li>
+											<li ><a href="{{route('article.edit', [$a_n->url,'type'=>'post','fn'=>'edit','post'=>$a_n->id])}}">Chỉnh sửa</a></li>
+											<li><a href="#">Disable</a></li>
+										</ul>
 									</div>
 								</div>
-								<!-- end aitem wrapper-->
-								<div class="aop aoption">
-									<span class="bt_exp"><i class="fa fa-chevron-down"></i></span>
-									<ul class="_exp_dropdown">
-										<li><a href="#">Xóa</a></li>
-										<li><a href="#">Chỉnh sửa</a></li>
-										<li><a href="#">Disable</a></li>
-									</ul>
-								</div>
-							</div>
-							<!-- emd item -->
-							<div class="aitem">
-								<div class="aitem-wrapper">
-									<div class="athumb">
-										{!! HTML::image('/images/items/item.jpg') !!}
-									</div>
-									<div class="acontent">
-										<div class="atit">
-											<h3><a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum sunt rerum reiciendis voluptas, similique dignissimos quis nobis quos nesciunt cum.</a></h3>
-										</div>
-										<div class="adesc">
-											Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim nesciunt necessitatibus vero expedita sit asperiores, accusamus dolorum quas nisi! Iste.
-										</div>
-										<div class="astatis">
-											<span><i class="fa fa-eye"></i>100</span>
-											<span><i class="fa fa-thumbs-o-up"></i>100</span>
-											<span><i class="fa fa-thumbs-o-down"></i>100</span>
-										</div>
-									</div>
-								</div>
-								<!-- end aitem wrapper-->
-								<div class="aop aoption">
-									<span class="bt_exp"><i class="fa fa-chevron-down"></i></span>
-									<ul class="_exp_dropdown">
-										<li><a href="#">Xóa</a></li>
-										<li><a href="#">Chỉnh sửa</a></li>
-										<li><a href="#">Disable</a></li>
-									</ul>
-								</div>
-							</div>
-							<!-- emd item -->
+								<!-- emd item -->
+								@endforeach
+							@endif
 						</div>
 					</div>
 					@foreach($categories as $cate)
@@ -211,7 +102,7 @@
 								<div style="">Chủ đề này chưa có bài viết nào</div>
 							@else
 								@foreach($cate->articles as $a)
-								<div id="aitem_{{$a->id}}" class="aitem">
+								<div id="c_item_{{$a->id}}" class="aitem aitem_{{$a->id}}">
 									<div class="aitem-wrapper">
 										<div class="athumb">
 											@if(!empty($a->thumbnail))
@@ -236,10 +127,10 @@
 									</div>
 									<!-- end aitem wrapper-->
 									<div class="aop aoption">
-										<span id="bt_exp_{{$a->id}}" class="bt_exp"><i class="fa fa-chevron-down"></i></span>
+										<span id="c_bt_exp_{{$a->id}}" class="bt_exp"><i class="fa fa-chevron-down"></i></span>
 										<ul id="_exp_dropdown_{{$a->id}}" class="_exp_dropdown">
-											<li><a href="#">Xóa</a></li>
-											<li><a href="#">Chỉnh sửa</a></li>
+											<li data-id="c_del_{{$a_n->id}}" class="a_del"><a href="#">Xóa</a></li>
+											<li><a href="{{route('article.edit', [$a->url,'type'=>'post','fn'=>'edit','post'=>$a->id])}}">Chỉnh sửa</a></li>
 											<li><a href="#">Disable</a></li>
 										</ul>
 									</div>
@@ -327,5 +218,11 @@
 			</div>
 		</div>
 	</section>
-
+<script>
+	$.ajaxSetup({
+	  headers: {
+	    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+	  }
+	});
+</script>
 @stop

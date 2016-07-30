@@ -11,6 +11,8 @@
     {!! HTML::script('js/bootstrap/bootstrap.min.js') !!}
     {!! HTML::script('js/abcxyz.js') !!}
     {!! HTML::script('js/main.js') !!}
+    <link rel="icon" href="{{url('/images/front/logo.png')}}">
+    <meta name="csrf_token" content="{{ csrf_token() }}" />
     <meta name="viewport" content="width=device-width, user-scalable=yes, maximum-scale=1.0, minimum-scale=1.0">
     @yield('ostyle')
     @yield('ojs')

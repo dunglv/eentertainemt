@@ -80,14 +80,14 @@ $(function(){
         var astatus = a_form_create.a_status.value;
 
 
-        if(atitle.length==0||aurl.length==0||adesc.length==0||acontent.length==0||athumb.length==0||atag.length==0){
+        if( atitle.length==0||aurl.length==0||adesc.length==0||acontent.length==0|| (athumb.length==0 && !$('.form-create').hasClass('form-update')) ||atag.length==0){
             alert('vui lòng không để trống mục nào');
             return false
         }
         if(atitle.length < 10 || atitle.length > 100){
             alert('tiêu đề quá ngắn hoặc quá dài (tối thiểu 10 và tối đa 100 ký tự)');
             return false;
-        }else  if($('#a_title_id').hasClass('_error')){
+        }else if($('#a_title_id').hasClass('_error')){
             alert('có lỗi ở tiêu đề. vui lòng kiểm tra lại');
             return false;
         }
@@ -130,8 +130,10 @@ $(function(){
         $in_tag.focus();
     });
 
-    var tagfield = '';
+
+
     $in_tag.on('keyup', function(e){
+        var tagfield = $(this).next('#a_tag_id').val();
         var regCode = /[^a-zA-Z0-9\s|à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ|è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ|ì|í|ị|ỉ|ĩ|ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ|ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ|ỳ|ý|ỵ|ỷ|ỹ|đ]+/g;
         if(e.keyCode == 188 && $(this).val().replace( regCode, '').length > 1){
             // alert();
@@ -141,23 +143,47 @@ $(function(){
             var $remove_tag = $('._t_close');
 
             tagfield = tagfield+tag+','; //gán tag để nhập vào input hidden
+            
             $('#a_tag_id').val(tagfield); // set giá trị tag hidden
-
+            tagfield = $(this).next('#a_tag_id').val();
             $remove_tag.on('click', function(e){
                 var $rmt_t = $(this).parent('.n-tg');
                 var rmt_tt = $(this).parent('.n-tg').text(); //lấy tag cần replace
-                var taglist = $('#a_tag_id').val();//lấy tag list hiện tại để replace
                 $('#'+$rmt_t.attr('id')).remove(); //remove tag html
+                tagfield = tagfield.replace(rmt_tt.trim()+',', ''); //replace trong input hidden
+                $('#a_tag_id').val(tagfield); // set lại tag cho input hidden
+                
+            });
+            if($('.form-create').hasClass('form-update')){
+                $('.form-create').removeClass('form-update');
+            }
+            id++;
+        }
+    });
+    if($('.form-create').hasClass('form-update')){
+         $('._t_close').on('click', function(e){
+                var $rmt_t = $(this).parent('.n-tg');
+                var rmt_tt = $(this).parent('.n-tg').text(); //lấy tag cần replace
 
-                tagfield = tagfield.replace(rmt_tt+',', ''); //replace trong input hidden
+                var taglist = $(this).parents('.add-tag').find('#a_tag_id').val();//lấy tag list hiện tại để replace
+                $('#'+$rmt_t.attr('id')).remove(); //remove tag html
+                var tagfield = taglist;
+                tagfield = tagfield.replace(rmt_tt.trim()+',', ''); //replace trong input hidden
+                // alert(rmt_tt);
+                console.log('taglist '+taglist);
+                // 
                 $('#a_tag_id').val(tagfield); // set lại tag cho input hidden
                 
             });
 
-            id++;
-        }
-    });
+         $('#a_thumbnail_id').bind('change', function(event){
+            if($('#a_thumbnail_id').length > 0){
+                $('input[name=a_h_thumbnail]').remove();
+            }else{
 
+            }
+         });
+     }
     //*********************************************
     // SIDE BAR HANDLE
     //*********************************************
@@ -178,11 +204,57 @@ $(function(){
             var $fExpand = $(this).parents('#create_aricle').find('.col-expand');
             var $fCollapse = $(this).parents('#create_aricle').find('.col-collapse');
             $(this).html('<i class="fa fa-chevron-right"></i>');
-            $fExpand.attr('class', 'col-expand col-xs-12 col-sm-12 col-md-8 col-lg-8');
-            $fCollapse.attr('class', 'col-collapse sidebar col-xs-12 col-sm-12 col-md-4 col-lg-4');
+            $fExpand.attr('class', 'col-expand col-xs-12 col-sm-12 col-md-9 col-lg-9');
+            $fCollapse.attr('class', 'col-collapse sidebar col-xs-12 col-sm-12 col-md-3 col-lg-3');
             $fCollapse.css({'display':'block'});
         }
         
+    });
+
+    // *************************************************************
+    // EFFECT ORTHER
+    // *************************************************************
+    setTimeout(function() { 
+           $('.i_tool').fadeOut(1000); 
+       }, 2000);
+
+
+
+    // *************************************************************
+    // HANDLE DELETE POST
+    // *************************************************************
+    $btn_del = $('.a_del');
+    $btn_del.on('click', function(event){
+        var _cfd = confirm('bạn muốn xóa bài viết này?');
+        var _id = $(this).attr('data-id').substr(6,20);
+        var $_strId = $('.aitem_'+_id);
+       
+        $(this).parents('._exp_dropdown').removeClass('_aoexp');
+        if(_cfd==true){
+            $('body').prepend('<div class="__ntFx"></div>');
+            $.ajax({
+                type: 'GET',
+                url: '/abcd/article/destroy',
+                data: {'_id': _id},
+                beforeSend: function () {
+                    $('.__ntFx').html('đang xử lý liệu...').addClass('__ss');
+                },
+                success: function(data){
+                    console.log(data);
+                    $('.__ntFx').html('xóa thành công').addClass('__ss');
+                    $_strId.fadeOut(1000).remove();
+                    setTimeout(function(){
+                        $('.__ntFx.__ss').fadeOut(1000);
+                    },1000);
+                },
+                error:function(){
+                    console.log('fail');
+                }
+            })
+        }else{
+             return fasle;
+        }
+        event.preventDefault();
 
     });
 });
@@ -210,11 +282,18 @@ function ajaxCheckExists(inputCheck, varCheck, valueCheck, compareData, classFor
     var jsonData = {};
     jsonData[varCheck] = valueCheck;
     jsonData['_token'] = $('input[name=_token]').val();
+    if($('.form-create').hasClass('form-update')){
+        jsonData['fn'] = 'update';
+        jsonData['id'] = $('input[name=_post_id]').val();
+    }else{
+        jsonData['fn'] = 'create';
+    }
     $.ajax({
             type: 'POST',
             url: '/abcd/article/checkexists',
             data: jsonData,
             success: function(data){
+                console.log(data);
                 if(data === compareData){
                     if(!inputCheck.hasClass('_error')){
                         inputCheck.addClass('_error');
@@ -249,7 +328,5 @@ function fileValidate(fileName) {
                 return false;
             }
         }
-   
-  
     return true;
 }

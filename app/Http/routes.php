@@ -20,6 +20,8 @@ Route::get('/detail', function(){
 Route::get('/abcxyz', function(){
 	return view('admin.login');
 });
+Route::get('/abcd/article/destroy', 'ArticleController@destroy');
+
 Route::get('/abcd', [
 	'as' => 'admin.home',
 	'uses' => 'AdminController@index'
@@ -36,3 +38,13 @@ Route::post('/abcd/article/checkexists', [
 		'as' => 'article.checkexists',
 		'uses' => 'ArticleController@checkexists'
 		]);
+Route::get('/abcd/article/{url}',[
+	'as' => 'article.edit',
+	'uses' => 'ArticleController@edit'
+	]);
+
+Route::put('/abcd/article/{url}',[
+	'as' => 'article.update',
+	'uses' => 'ArticleController@update'
+	]);
+Route::post('/abcd/upload_image', 'AdminController@upload_img');

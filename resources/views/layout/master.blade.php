@@ -9,6 +9,7 @@
     {!! HTML::script('js/jquery-1.11.1.min.js') !!}
     {!! HTML::script('js/bootstrap/bootstrap.min.js') !!}
     {!! HTML::script('js/main.js') !!}
+    <link rel="icon" href="{{url('/images/front/logo.png')}}">
     <meta name="viewport" content="width=device-width, user-scalable=yes, maximum-scale=1.0, minimum-scale=1.0">
     @yield('ostyle')
     @yield('ojs')

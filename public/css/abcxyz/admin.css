@@ -4,6 +4,28 @@ main{
 header input, header .btn{
 	border-radius: 0 !important;
 }
+.__ntFx{
+	position: fixed;
+    bottom: 0;
+    right: 0;
+    z-index: 100;
+    background: rgba(6, 99, 80, 0.94);
+    text-align: center;
+    padding: 15px 30px;
+    border-radius: 7px;
+    color: #fff;
+    margin: 20px 30px 20px 30px;
+    font-size: 1.2em;
+    border: 2px solid #fff;
+    opacity: 0;
+}
+.__ntFx.__ss{
+	opacity: 1;
+	margin: 20px 30px 50px 30px;
+	-webkit-transition: opacity 0.2s, margin ease 0.4s;
+	-o-transition: opacity 0.2s, margin ease 0.4s;
+	transition: opacity 0.2s, margin ease 0.4s;
+}
 .menu-top{
 	border-radius: 0;
 }
@@ -66,6 +88,8 @@ header input, header .btn{
 	float: left;
 	width: 30%;
 	padding-right: 5px;
+	max-height: 140px;
+	overflow-y: hidden;
 }
 .aitem .athumb img{
 	width: 100%;
@@ -283,6 +307,9 @@ header input, header .btn{
 	height: auto;
 	border: 0;
 }
+.form-create img{
+	max-width: 100%;
+}
 .form-create .group-btn{
 	position: relative;
 }
@@ -329,12 +356,14 @@ header input, header .btn{
 	opacity: 0.9;
 	padding: 5px 6px;
 }
-.form-create  button, .form-create .btn{
+.form-create  .button, .form-create  a.button, .form-create .btn{
 	background: #e74c3c;
 	border-color: #c33728;
+	border-radius: 0;
+	font-size: 1em;
 }
-.form-create  button:hover, .form-create .btn:hover,
-.form-create  button:focus, .form-create .btn:focus{
+.form-create  .button:hover, .form-create  a.button:hover, .form-create .btn:hover,
+.form-create  .button:focus, .form-create  a.button:focus, .form-create .btn:focus{
 	background: #ff9a90;
 	border-color: #f55545;
 	box-shadow: 1px 1px 0.5px #941d11;
