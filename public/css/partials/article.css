@@ -3,7 +3,7 @@
 	/*background: #ddd;*/
 }
 #detail_post .dt-top{
-	padding: 10px 5px 10px 5px;
+	padding: 10px 0;
 	border-bottom: 2px solid #ddd;
 	display: table;
 	width: 100%;
@@ -98,6 +98,8 @@
 }
 #detail_post .dt-cate .acate-list{
 	list-style: none;
+	display: table;
+	width: 100%;
 }
 #detail_post .dt-cate .acate-list li{
 	padding: 7px 16px;

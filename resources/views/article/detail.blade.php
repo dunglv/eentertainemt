@@ -1,5 +1,5 @@
 @extends('layout.master')
-@section('title', 'Detail Post')
+@section('title', $article[0]->title)
 @section('ostyle', HTML::style('/css/partials/article.css'))
 
 @section('body')
@@ -25,7 +25,7 @@
 						</div>
 						
 						<div class="dt-infor">
-							In <a href="#">{{$article[0]->categories->title}}</a> by <a href="{{url('/author/admin')}}">admin</a>, at 10:10 AM March 10th 2016
+							In <a href="#">{{$article[0]->categories->title}}</a> by <a href="{{url('/author/admin')}}">admin</a>, at {{date('h:i A l, F d, Y')}}
 						</div>
 						
 						<div class="dt-content">
@@ -48,10 +48,13 @@
 								<h2>Các bài viết cùng chủ đề:</h2>
 							</div>
 							<ul class="acate-list">
-								<li><a href="#">Lorem ipsum dolor sit amet.</a></li>
-								<li><a href="#">Lorem ipsum dolor sit amet.</a></li>
-								<li><a href="#">Lorem ipsum dolor sit amet.</a></li>
-								<li><a href="#">Lorem ipsum dolor sit amet.</a></li>
+								@if($samecate->count()>0)
+									@foreach($samecate as $sc)
+									<li><a href="{{url($sc->url.'.'.$sc->id)}}">{{$sc->title}}</a></li>
+									@endforeach
+								@else
+									<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">đang cập nhật dữ liệu</div>
+								@endif
 							</ul>
 						</div>
 						<div class="dt-comment">

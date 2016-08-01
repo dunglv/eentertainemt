@@ -161,10 +161,15 @@ class ArticleController extends Controller
     public function detail_home_article($url='', $id='')
     {
         $article = Article::with('categories')->where('id','=', $id)->where('url', '=', $url)->get();
+        $samecate = Article::where('category_id','=', $article[0]->category_id)->where('id','<>', $id)->where('status', '=', 1)->get();
+        // echo '<pre>';
+        // print_r($samecate[0]); 
+        // echo '</pre>';
+        // exit();
         if($article->count()==0){
             return redirect()->route('front.home');
         }else{
-            return view('article.detail')->with(['article'=>$article]);
+            return view('article.detail')->with(['article'=>$article, 'samecate'=>$samecate]);
         }
     }
 
