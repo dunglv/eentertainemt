@@ -10,138 +10,66 @@
                         <h2>NỔI BẬT</h2>
                     </div>
                 </div>
-                    <div class="block-content">
-                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                            <?php $vId = "nQEsip6B9SQ"; ?>
-                            <div id="<?php echo $vId; ?>" class="item-block">
-                                <div class="desc-thumb">
-                                    <div class="thumb-item">
-
+                <div class="block-content">
+                    @if($featured->count()== 0)
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">dữ liệu đang được cập nhật</div>
+                    @else
+                        @foreach($featured as $fea)
+                         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                            @if($fea->type=='video')
+                                <div id="{{rand(100,999).'_fea_'.$fea->idv}}" class="item-block item-{{$fea->type}}">
+                                    <div class="desc-thumb">
+                                        <div class="thumb-item">
+                                             <iframe width="100%" height="100%" src="https://www.youtube.com/embed/{{$fea->idv}}" frameborder="0" allowfullscreen></iframe>
+                                        </div>
+                                    </div>
+                                    <div class="title-item">
+                                        <h3><a href="https://www.youtube.com/watch?v={{$fea->idv}}"><?php //echo youtube($vId)['snippet']['title'] ?></a></h3>
+                                    </div>
+                                    <div class="desc-item" style="display:none">
+                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore id nihil molestiae mollitia beatae, architecto similique, vitae eveniet cumque dignissimos eum laboriosam iure reiciendis veritatis, corporis facere illo eligendi reprehenderit.
+                                    </div>
+                                    <div class="no-item">
+                                        <div class="in-no-item">
+                                            <span><i class="fa fa-eye"></i><i class="count viewCount"></i><?php// echo youtube($vId)['statistics']['viewCount'] ?></span>
+                                            <span><i class="fa fa-thumbs-o-up"></i><i class="count likeCount"></i><?php //echo youtube($vId)['statistics']['likeCount'] ?></span>
+                                            <span><i class="fa fa-thumbs-o-down"></i><i class="count dislikeCount"></i><?php //echo youtube($vId)['statistics']['dislikeCount'] ?></span>
+                                            <span><i class="fa fa-comment-o"></i><i class="count commentCount"></i><?php //echo youtube($vId)['statistics']['commentCount'] ?></span>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="title-item">
-                                    <h3><a href="https://www.youtube.com/watch?v=<?php echo $vId; ?>"><?php //echo youtube($vId)['snippet']['title'] ?></a></h3>
-                                </div>
-                                <div class="desc-item" style="display:none">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore id nihil molestiae mollitia beatae, architecto similique, vitae eveniet cumque dignissimos eum laboriosam iure reiciendis veritatis, corporis facere illo eligendi reprehenderit.
-                                </div>
-                                <div class="no-item">
-                                    <div class="in-no-item">
-                                        <span><i class="fa fa-eye"></i><i class="count viewCount"></i><?php// echo youtube($vId)['statistics']['viewCount'] ?></span>
-                                        <span><i class="fa fa-thumbs-o-up"></i><i class="count likeCount"></i><?php //echo youtube($vId)['statistics']['likeCount'] ?></span>
-                                        <span><i class="fa fa-thumbs-o-down"></i><i class="count dislikeCount"></i><?php //echo youtube($vId)['statistics']['dislikeCount'] ?></span>
-                                        <span><i class="fa fa-comment-o"></i><i class="count commentCount"></i><?php //echo youtube($vId)['statistics']['commentCount'] ?></span>
+                            @else
+                                <div id="{{rand(100,999).'_fea_'.$fea->id}}" class="item-block item-{{$fea->type}}">
+                                    <div class="desc-thumb">
+                                        <div class="thumb-item">
+                                            <img src="{{url($fea->thumbnail)}}" alt="{{$fea->title}}">
+                                        </div>
+                                        <div class="desc-item" style="">
+                                            {{substr($fea->description, 0, 200).'...'}}
+                                        </div>
+                                        <div class="button-link">
+                                            <a href="{{url($fea->url.'.'.$fea->id)}}"><i class="fa fa-link"></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="title-item">
+                                        <h3><a href="{{url($fea->url.'.'.$fea->id)}}">{{$fea->title}}</a></h3>
+                                    </div>
+                                    <div class="no-item">
+                                        <div class="in-no-item">
+                                            <span><i class="fa fa-eye"></i><i class="count viewCount"></i>{{$fea->viewcount}}</span>
+                                            <span><i class="fa fa-thumbs-o-up"></i><i class="count likeCount"></i>{{$fea->viewcount}}</span>
+                                            <span><i class="fa fa-thumbs-o-down"></i><i class="count dislikeCount"></i>{{$fea->viewcount}}</span>
+                                            <span><i class="fa fa-comment-o"></i><i class="count commentCount"></i></span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <!-- end item -->
+                                <!-- end item -->
+                            @endif
                         </div>
                         <!-- end of item -->
-                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                            <?php $vId = "83U-l-3Haqc"; ?>
-                            <div id="<?php echo $vId; ?>" class="item-block">
-                                <div class="desc-thumb">
-                                    <div class="thumb-item">
-
-                                    </div>
-                                </div>
-                                <div class="title-item">
-                                    <h3><a href="https://www.youtube.com/watch?v=<?php echo $vId; ?>"><?php //echo youtube($vId)['snippet']['title'] ?></a></h3>
-                                </div>
-                                <div class="desc-item" style="display:none">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore id nihil molestiae mollitia beatae, architecto similique, vitae eveniet cumque dignissimos eum laboriosam iure reiciendis veritatis, corporis facere illo eligendi reprehenderit.
-                                </div>
-                                <div class="no-item">
-                                    <div class="in-no-item">
-                                        <span><i class="fa fa-eye"></i><i class="count viewCount"></i><?php// echo youtube($vId)['statistics']['viewCount'] ?></span>
-                                        <span><i class="fa fa-thumbs-o-up"></i><i class="count likeCount"></i><?php //echo youtube($vId)['statistics']['likeCount'] ?></span>
-                                        <span><i class="fa fa-thumbs-o-down"></i><i class="count dislikeCount"></i><?php //echo youtube($vId)['statistics']['dislikeCount'] ?></span>
-                                        <span><i class="fa fa-comment-o"></i><i class="count commentCount"></i><?php //echo youtube($vId)['statistics']['commentCount'] ?></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- end item -->
-                        </div>
-                        <!-- end of item -->
-                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                            <?php $vId = "GOOq_wCAaoQ"; ?>
-                            <div id="<?php echo $vId; ?>" class="item-block">
-                                <div class="desc-thumb">
-                                    <div class="thumb-item">
-
-                                    </div>
-                                </div>
-                                <div class="title-item">
-                                    <h3><a href="https://www.youtube.com/watch?v=<?php echo $vId; ?>"><?php //echo youtube($vId)['snippet']['title'] ?></a></h3>
-                                </div>
-                                <div class="desc-item" style="display:none">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore id nihil molestiae mollitia beatae, architecto similique, vitae eveniet cumque dignissimos eum laboriosam iure reiciendis veritatis, corporis facere illo eligendi reprehenderit.
-                                </div>
-                                <div class="no-item">
-                                    <div class="in-no-item">
-                                        <span><i class="fa fa-eye"></i><i class="count viewCount"></i><?php// echo youtube($vId)['statistics']['viewCount'] ?></span>
-                                        <span><i class="fa fa-thumbs-o-up"></i><i class="count likeCount"></i><?php //echo youtube($vId)['statistics']['likeCount'] ?></span>
-                                        <span><i class="fa fa-thumbs-o-down"></i><i class="count dislikeCount"></i><?php //echo youtube($vId)['statistics']['dislikeCount'] ?></span>
-                                        <span><i class="fa fa-comment-o"></i><i class="count commentCount"></i><?php //echo youtube($vId)['statistics']['commentCount'] ?></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- end item -->
-                        </div>
-                        <!-- end of item -->
-                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                            <?php $vId = "n3bet61mQv4"; ?>
-                            <div id="<?php echo $vId; ?>" class="item-block">
-                                <div class="desc-thumb">
-                                    <div class="thumb-item">
-
-                                    </div>
-                                </div>
-                                <div class="title-item">
-                                    <h3><a href="https://www.youtube.com/watch?v=<?php echo $vId; ?>"><?php //echo youtube($vId)['snippet']['title'] ?></a></h3>
-                                </div>
-                                <div class="desc-item" style="display:none">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore id nihil molestiae mollitia beatae, architecto similique, vitae eveniet cumque dignissimos eum laboriosam iure reiciendis veritatis, corporis facere illo eligendi reprehenderit.
-                                </div>
-                                <div class="no-item">
-                                    <div class="in-no-item">
-                                        <span><i class="fa fa-eye"></i><i class="count viewCount"></i><?php// echo youtube($vId)['statistics']['viewCount'] ?></span>
-                                        <span><i class="fa fa-thumbs-o-up"></i><i class="count likeCount"></i><?php //echo youtube($vId)['statistics']['likeCount'] ?></span>
-                                        <span><i class="fa fa-thumbs-o-down"></i><i class="count dislikeCount"></i><?php //echo youtube($vId)['statistics']['dislikeCount'] ?></span>
-                                        <span><i class="fa fa-comment-o"></i><i class="count commentCount"></i><?php //echo youtube($vId)['statistics']['commentCount'] ?></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- end item -->
-                        </div>
-                        <!-- end of item -->
-                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                            <?php $vId = "CpruiP5cVwA"; ?>
-                            <div id="<?php echo $vId; ?>" class="item-block">
-                                <div class="desc-thumb">
-                                    <div class="thumb-item">
-
-                                    </div>
-                                </div>
-                                <div class="title-item">
-                                    <h3><a href="https://www.youtube.com/watch?v=<?php echo $vId; ?>"><?php //echo youtube($vId)['snippet']['title'] ?></a></h3>
-                                </div>
-                                <div class="desc-item" style="display:none">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore id nihil molestiae mollitia beatae, architecto similique, vitae eveniet cumque dignissimos eum laboriosam iure reiciendis veritatis, corporis facere illo eligendi reprehenderit.
-                                </div>
-                                <div class="no-item">
-                                    <div class="in-no-item">
-                                        <span><i class="fa fa-eye"></i><i class="count viewCount"></i><?php// echo youtube($vId)['statistics']['viewCount'] ?></span>
-                                        <span><i class="fa fa-thumbs-o-up"></i><i class="count likeCount"></i><?php //echo youtube($vId)['statistics']['likeCount'] ?></span>
-                                        <span><i class="fa fa-thumbs-o-down"></i><i class="count dislikeCount"></i><?php //echo youtube($vId)['statistics']['dislikeCount'] ?></span>
-                                        <span><i class="fa fa-comment-o"></i><i class="count commentCount"></i><?php //echo youtube($vId)['statistics']['commentCount'] ?></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- end item -->
-                        </div>
-                        <!-- end of item -->
-                    </div>
+                        @endforeach
+                    @endif
+                </div>
             </div>
         </div>
     </section>
@@ -155,421 +83,147 @@
                         <h2>MỚI NHẤT</h2>
                     </div>
                 </div>
-                    <div class="block-content">
-                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                            <div class="item-block">
-                                <div class="desc-thumb">
-                                    <div class="thumb-item">
-                                        <img src="images/items/item.jpg" alt="Lorem ipsum dolor.">
+                <div class="block-content">
+                    @if($newest->count()== 0)
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">dữ liệu đang được cập nhật</div>
+                    @else
+                        @foreach($newest as $new)
+                         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                            @if($new->type=='video')
+                                <div id="{{rand(100,999).'_fea_'.$new->idv}}" class="item-block item-{{$new->type}}">
+                                    <div class="desc-thumb">
+                                        <div class="thumb-item">
+                                             <iframe width="100%" height="100%" src="https://www.youtube.com/embed/{{$new->idv}}" frameborder="0" allowfullscreen></iframe>
+                                        </div>
                                     </div>
-                                    <div class="desc-item" style="">
+                                    <div class="title-item">
+                                        <h3><a href="https://www.youtube.com/watch?v={{$new->idv}}"></a></h3>
+                                    </div>
+                                    <div class="desc-item" style="display:none">
                                         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore id nihil molestiae mollitia beatae, architecto similique, vitae eveniet cumque dignissimos eum laboriosam iure reiciendis veritatis, corporis facere illo eligendi reprehenderit.
                                     </div>
-                                    <div class="button-link">
-                                        <a href="#"><i class="fa fa-link"></i></a>
+                                    <div class="no-item">
+                                        <div class="in-no-item">
+                                            <span><i class="fa fa-eye"></i><i class="count viewCount"></i><?php// echo youtube($vId)['statistics']['viewCount'] ?></span>
+                                            <span><i class="fa fa-thumbs-o-up"></i><i class="count likeCount"></i><?php //echo youtube($vId)['statistics']['likeCount'] ?></span>
+                                            <span><i class="fa fa-thumbs-o-down"></i><i class="count dislikeCount"></i><?php //echo youtube($vId)['statistics']['dislikeCount'] ?></span>
+                                            <span><i class="fa fa-comment-o"></i><i class="count commentCount"></i><?php //echo youtube($vId)['statistics']['commentCount'] ?></span>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="title-item">
-                                    <h3><a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, qui.</a></h3>
-                                </div>
-                                <div class="no-item">
-                                    <div class="in-no-item">
-                                        <span><i class="fa fa-eye"></i>100</span>
-                                        <span><i class="fa fa-thumbs-o-up"></i>10</span>
-                                        <span><i class="fa fa-thumbs-o-down"></i>10</span>
-                                        <span><i class="fa fa-comment-o"></i>10</span>
+                            @else
+                                <div id="{{rand(100,999).'_new_'.$new->id}}" class="item-block item-{{$new->type}}">
+                                    <div class="desc-thumb">
+                                        <div class="thumb-item">
+                                            <img src="{{url($new->thumbnail)}}" alt="{{$new->title}}">
+                                        </div>
+                                        <div class="desc-item" style="">
+                                            {{substr($new->description, 0, 200).'...'}}
+                                        </div>
+                                        <div class="button-link">
+                                            <a href="{{url($new->url.'.'.$new->id)}}"><i class="fa fa-link"></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="title-item">
+                                        <h3><a href="{{url($new->url.'.'.$new->id)}}">{{$new->title}}</a></h3>
+                                    </div>
+                                    <div class="no-item">
+                                        <div class="in-no-item">
+                                            <span><i class="fa fa-eye"></i><i class="count viewCount"></i>{{$new->viewcount}}</span>
+                                            <span><i class="fa fa-thumbs-o-up"></i><i class="count likeCount"></i>{{$new->viewcount}}</span>
+                                            <span><i class="fa fa-thumbs-o-down"></i><i class="count dislikeCount"></i>{{$new->viewcount}}</span>
+                                            <span><i class="fa fa-comment-o"></i><i class="count commentCount"></i></span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <!-- end item -->
+                                <!-- end item -->
+                            @endif
                         </div>
                         <!-- end of item -->
-                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                            <div class="item-block">
-                                <div class="desc-thumb">
-                                    <div class="thumb-item">
-                                        <img src="images/items/item.jpg" alt="Lorem ipsum dolor.">
-                                    </div>
-                                    <div class="desc-item" style="">
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore id nihil molestiae mollitia beatae, architecto similique, vitae eveniet cumque dignissimos eum laboriosam iure reiciendis veritatis, corporis facere illo eligendi reprehenderit.
-                                    </div>
-                                    <div class="button-link">
-                                        <a href="#"><i class="fa fa-link"></i></a>
-                                    </div>
-                                </div>
-                                <div class="title-item">
-                                    <h3><a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, qui.</a></h3>
-                                </div>
-                                <div class="no-item">
-                                    <div class="in-no-item">
-                                        <span><i class="fa fa-eye"></i>100</span>
-                                        <span><i class="fa fa-thumbs-o-up"></i>10</span>
-                                        <span><i class="fa fa-thumbs-o-down"></i>10</span>
-                                        <span><i class="fa fa-comment-o"></i>10</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- end item -->
-                        </div>
-                        <!-- end of item -->
-                    </div>
+                        @endforeach
+                    @endif
+                </div>
             </div>
         </div>
     </section>
     <!-- end newesthome -->
-    <!-- begin newest home -->
-    <section id="movies-home" class="block">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <div class="block-cap">
-                        <h2>PHIM TRUYỆN</h2>
+    @if($cate->count()>0)
+        @foreach($cate as $cat)
+            <!-- begin {{$cat->url}} -->
+            <section id="cat_home_{{$cat->id}}" class="block cate-home-{{$cat->id}}">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <div class="block-cap">
+                                <h2>{{$cat->title}}</h2>
+                            </div>
+                        </div>
+                        <div class="block-content">
+                            @if($cat->articles->count()==0)
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">đang cập nhật dữ liệu</div>
+                            @else
+                                 @foreach($cat->articles as $art)
+                                     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                        @if($art->type=='video')
+                                            <div id="{{rand(100,999).'_cat_'.$art->idv}}" class="item-block item-{{$art->type}}">
+                                                <div class="desc-thumb">
+                                                    <div class="thumb-item">
+                                                         <iframe width="100%" height="100%" src="https://www.youtube.com/embed/{{$art->idv}}" frameborder="0" allowfullscreen></iframe>
+                                                    </div>
+                                                </div>
+                                                <div class="title-item">
+                                                    <h3><a href="https://www.youtube.com/watch?v={{$art->idv}}"></a></h3>
+                                                </div>
+                                                <div class="desc-item" style="display:none">
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore id nihil molestiae mollitia beatae, architecto similique, vitae eveniet cumque dignissimos eum laboriosam iure reiciendis veritatis, corporis facere illo eligendi reprehenderit.
+                                                </div>
+                                                <div class="no-item">
+                                                    <div class="in-no-item">
+                                                        <span><i class="fa fa-eye"></i><i class="count viewCount"></i><?php// echo youtube($vId)['statistics']['viewCount'] ?></span>
+                                                        <span><i class="fa fa-thumbs-o-up"></i><i class="count likeCount"></i><?php //echo youtube($vId)['statistics']['likeCount'] ?></span>
+                                                        <span><i class="fa fa-thumbs-o-down"></i><i class="count dislikeCount"></i><?php //echo youtube($vId)['statistics']['dislikeCount'] ?></span>
+                                                        <span><i class="fa fa-comment-o"></i><i class="count commentCount"></i><?php //echo youtube($vId)['statistics']['commentCount'] ?></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @else
+                                            <div id="{{rand(100,999).'_cat_'.$art->id}}" class="item-block item-{{$art->type}}">
+                                                <div class="desc-thumb">
+                                                    <div class="thumb-item">
+                                                        <img src="{{url($art->thumbnail)}}" alt="{{$art->title}}">
+                                                    </div>
+                                                    <div class="desc-item" style="">
+                                                        {{substr($art->description, 0, 200).'...'}}
+                                                    </div>
+                                                    <div class="button-link">
+                                                        <a href="{{url($art->url.'.'.$art->id)}}"><i class="fa fa-link"></i></a>
+                                                    </div>
+                                                </div>
+                                                <div class="title-item">
+                                                    <h3><a href="{{url($art->url.'.'.$art->id)}}">{{$art->title}}</a></h3>
+                                                </div>
+                                                <div class="no-item">
+                                                    <div class="in-no-item">
+                                                        <span><i class="fa fa-eye"></i><i class="count viewCount"></i>{{$art->viewcount}}</span>
+                                                        <span><i class="fa fa-thumbs-o-up"></i><i class="count likeCount"></i>{{$art->viewcount}}</span>
+                                                        <span><i class="fa fa-thumbs-o-down"></i><i class="count dislikeCount"></i>{{$art->viewcount}}</span>
+                                                        <span><i class="fa fa-comment-o"></i><i class="count commentCount"></i></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- end item -->
+                                        @endif
+                                    </div>
+                                    <!-- end of item -->
+                                    @endforeach
+                            @endif
+                        </div>
                     </div>
                 </div>
-                    <div class="block-content">
-                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                            <div class="item-block">
-                                <div class="desc-thumb">
-                                    <div class="thumb-item">
-                                        <img src="images/items/item.jpg" alt="Lorem ipsum dolor.">
-                                    </div>
-                                    <div class="desc-item" style="">
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore id nihil molestiae mollitia beatae, architecto similique, vitae eveniet cumque dignissimos eum laboriosam iure reiciendis veritatis, corporis facere illo eligendi reprehenderit.
-                                    </div>
-                                    <div class="button-link">
-                                        <a href="#"><i class="fa fa-link"></i></a>
-                                    </div>
-                                </div>
-                                <div class="title-item">
-                                    <h3><a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, qui.</a></h3>
-                                </div>
-                                <div class="no-item">
-                                    <div class="in-no-item">
-                                        <span><i class="fa fa-eye"></i>100</span>
-                                        <span><i class="fa fa-thumbs-o-up"></i>10</span>
-                                        <span><i class="fa fa-thumbs-o-down"></i>10</span>
-                                        <span><i class="fa fa-comment-o"></i>10</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- end item -->
-                        </div>
-                        <!-- end of item -->
-                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                            <div class="item-block">
-                                <div class="desc-thumb">
-                                    <div class="thumb-item">
-                                        <img src="images/items/item.jpg" alt="Lorem ipsum dolor.">
-                                    </div>
-                                    <div class="desc-item" style="">
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore id nihil molestiae mollitia beatae, architecto similique, vitae eveniet cumque dignissimos eum laboriosam iure reiciendis veritatis, corporis facere illo eligendi reprehenderit.
-                                    </div>
-                                    <div class="button-link">
-                                        <a href="#"><i class="fa fa-link"></i></a>
-                                    </div>
-                                </div>
-                                <div class="title-item">
-                                    <h3><a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, qui.</a></h3>
-                                </div>
-                                <div class="no-item">
-                                    <div class="in-no-item">
-                                        <span><i class="fa fa-eye"></i>100</span>
-                                        <span><i class="fa fa-thumbs-o-up"></i>10</span>
-                                        <span><i class="fa fa-thumbs-o-down"></i>10</span>
-                                        <span><i class="fa fa-comment-o"></i>10</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- end item -->
-                        </div>
-                        <!-- end of item -->
-                    </div>
-            </div>
-        </div>
-    </section>
-    <!-- end movie home -->
-    <!-- begin clip home -->
-    <section id="clips-home" class="block">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <div class="block-cap">
-                        <h2>CLIP HÀI</h2>
-                    </div>
-                </div>
-                    <div class="block-content">
-                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                            <div class="item-block">
-                                <div class="desc-thumb">
-                                    <div class="thumb-item">
-                                        <img src="images/items/item.jpg" alt="Lorem ipsum dolor.">
-                                    </div>
-                                    <div class="desc-item" style="">
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore id nihil molestiae mollitia beatae, architecto similique, vitae eveniet cumque dignissimos eum laboriosam iure reiciendis veritatis, corporis facere illo eligendi reprehenderit.
-                                    </div>
-                                    <div class="button-link">
-                                        <a href="#"><i class="fa fa-link"></i></a>
-                                    </div>
-                                </div>
-                                <div class="title-item">
-                                    <h3><a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, qui.</a></h3>
-                                </div>
-                                <div class="no-item">
-                                    <div class="in-no-item">
-                                        <span><i class="fa fa-eye"></i>100</span>
-                                        <span><i class="fa fa-thumbs-o-up"></i>10</span>
-                                        <span><i class="fa fa-thumbs-o-down"></i>10</span>
-                                        <span><i class="fa fa-comment-o"></i>10</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- end item -->
-                        </div>
-                        <!-- end of item -->
-                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                            <div class="item-block">
-                                <div class="desc-thumb">
-                                    <div class="thumb-item">
-                                        <img src="images/items/item.jpg" alt="Lorem ipsum dolor.">
-                                    </div>
-                                    <div class="desc-item" style="">
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore id nihil molestiae mollitia beatae, architecto similique, vitae eveniet cumque dignissimos eum laboriosam iure reiciendis veritatis, corporis facere illo eligendi reprehenderit.
-                                    </div>
-                                    <div class="button-link">
-                                        <a href="#"><i class="fa fa-link"></i></a>
-                                    </div>
-                                </div>
-                                <div class="title-item">
-                                    <h3><a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, qui.</a></h3>
-                                </div>
-                                <div class="no-item">
-                                    <div class="in-no-item">
-                                        <span><i class="fa fa-eye"></i>100</span>
-                                        <span><i class="fa fa-thumbs-o-up"></i>10</span>
-                                        <span><i class="fa fa-thumbs-o-down"></i>10</span>
-                                        <span><i class="fa fa-comment-o"></i>10</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- end item -->
-                        </div>
-                        <!-- end of item -->
-                    </div>
-            </div>
-        </div>
-    </section>
-    <!-- end clip home -->
-    <!-- begin story home -->
-    <section id="stories-home" class="block">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <div class="block-cap">
-                        <h2>TRUYỆN CƯỜI</h2>
-                    </div>
-                </div>
-                    <div class="block-content">
-                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                            <div class="item-block">
-                                <div class="desc-thumb">
-                                    <div class="thumb-item">
-                                        <img src="images/items/item.jpg" alt="Lorem ipsum dolor.">
-                                    </div>
-                                    <div class="desc-item" style="">
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore id nihil molestiae mollitia beatae, architecto similique, vitae eveniet cumque dignissimos eum laboriosam iure reiciendis veritatis, corporis facere illo eligendi reprehenderit.
-                                    </div>
-                                    <div class="button-link">
-                                        <a href="#"><i class="fa fa-link"></i></a>
-                                    </div>
-                                </div>
-                                <div class="title-item">
-                                    <h3><a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, qui.</a></h3>
-                                </div>
-                                <div class="no-item">
-                                    <div class="in-no-item">
-                                        <span><i class="fa fa-eye"></i>100</span>
-                                        <span><i class="fa fa-thumbs-o-up"></i>10</span>
-                                        <span><i class="fa fa-thumbs-o-down"></i>10</span>
-                                        <span><i class="fa fa-comment-o"></i>10</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- end item -->
-                        </div>
-                        <!-- end of item -->
-                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                            <div class="item-block">
-                                <div class="desc-thumb">
-                                    <div class="thumb-item">
-                                        <img src="images/items/item.jpg" alt="Lorem ipsum dolor.">
-                                    </div>
-                                    <div class="desc-item" style="">
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore id nihil molestiae mollitia beatae, architecto similique, vitae eveniet cumque dignissimos eum laboriosam iure reiciendis veritatis, corporis facere illo eligendi reprehenderit.
-                                    </div>
-                                    <div class="button-link">
-                                        <a href="#"><i class="fa fa-link"></i></a>
-                                    </div>
-                                </div>
-                                <div class="title-item">
-                                    <h3><a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, qui.</a></h3>
-                                </div>
-                                <div class="no-item">
-                                    <div class="in-no-item">
-                                        <span><i class="fa fa-eye"></i>100</span>
-                                        <span><i class="fa fa-thumbs-o-up"></i>10</span>
-                                        <span><i class="fa fa-thumbs-o-down"></i>10</span>
-                                        <span><i class="fa fa-comment-o"></i>10</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- end item -->
-                        </div>
-                        <!-- end of item -->
-                    </div>
-            </div>
-        </div>
-    </section>
-    <!-- end sory home -->
-    <!-- begin news home -->
-    <section id="news-home" class="block">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <div class="block-cap">
-                        <h2>TIN TỨC GIẢI TRÍ</h2>
-                    </div>
-                </div>
-                    <div class="block-content">
-                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                            <div class="item-block">
-                                <div class="desc-thumb">
-                                    <div class="thumb-item">
-                                        <img src="images/items/item.jpg" alt="Lorem ipsum dolor.">
-                                    </div>
-                                    <div class="desc-item" style="">
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore id nihil molestiae mollitia beatae, architecto similique, vitae eveniet cumque dignissimos eum laboriosam iure reiciendis veritatis, corporis facere illo eligendi reprehenderit.
-                                    </div>
-                                    <div class="button-link">
-                                        <a href="#"><i class="fa fa-link"></i></a>
-                                    </div>
-                                </div>
-                                <div class="title-item">
-                                    <h3><a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, qui.</a></h3>
-                                </div>
-                                <div class="no-item">
-                                    <div class="in-no-item">
-                                        <span><i class="fa fa-eye"></i>100</span>
-                                        <span><i class="fa fa-thumbs-o-up"></i>10</span>
-                                        <span><i class="fa fa-thumbs-o-down"></i>10</span>
-                                        <span><i class="fa fa-comment-o"></i>10</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- end item -->
-                        </div>
-                        <!-- end of item -->
-                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                            <div class="item-block">
-                                <div class="desc-thumb">
-                                    <div class="thumb-item">
-                                        <img src="images/items/item.jpg" alt="Lorem ipsum dolor.">
-                                    </div>
-                                    <div class="desc-item" style="">
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore id nihil molestiae mollitia beatae, architecto similique, vitae eveniet cumque dignissimos eum laboriosam iure reiciendis veritatis, corporis facere illo eligendi reprehenderit.
-                                    </div>
-                                    <div class="button-link">
-                                        <a href="#"><i class="fa fa-link"></i></a>
-                                    </div>
-                                </div>
-                                <div class="title-item">
-                                    <h3><a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, qui.</a></h3>
-                                </div>
-                                <div class="no-item">
-                                    <div class="in-no-item">
-                                        <span><i class="fa fa-eye"></i>100</span>
-                                        <span><i class="fa fa-thumbs-o-up"></i>10</span>
-                                        <span><i class="fa fa-thumbs-o-down"></i>10</span>
-                                        <span><i class="fa fa-comment-o"></i>10</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- end item -->
-                        </div>
-                        <!-- end of item -->
-                    </div>
-            </div>
-        </div>
-    </section>
-    <!-- end news home -->
-    <!-- begin quizzes home -->
-    <section id="quizzes-home" class="block">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <div class="block-cap">
-                        <h2>ĐỐ VUI</h2>
-                    </div>
-                </div>
-                    <div class="block-content">
-                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                            <div class="item-block">
-                                <div class="desc-thumb">
-                                    <div class="thumb-item">
-                                        <img src="images/items/item.jpg" alt="Lorem ipsum dolor.">
-                                    </div>
-                                    <div class="desc-item" style="">
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore id nihil molestiae mollitia beatae, architecto similique, vitae eveniet cumque dignissimos eum laboriosam iure reiciendis veritatis, corporis facere illo eligendi reprehenderit.
-                                    </div>
-                                    <div class="button-link">
-                                        <a href="#"><i class="fa fa-link"></i></a>
-                                    </div>
-                                </div>
-                                <div class="title-item">
-                                    <h3><a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, qui.</a></h3>
-                                </div>
-                                <div class="no-item">
-                                    <div class="in-no-item">
-                                        <span><i class="fa fa-eye"></i>100</span>
-                                        <span><i class="fa fa-thumbs-o-up"></i>10</span>
-                                        <span><i class="fa fa-thumbs-o-down"></i>10</span>
-                                        <span><i class="fa fa-comment-o"></i>10</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- end item -->
-                        </div>
-                        <!-- end of item -->
-                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                            <div class="item-block">
-                                <div class="desc-thumb">
-                                    <div class="thumb-item">
-                                        <img src="images/items/item.jpg" alt="Lorem ipsum dolor.">
-                                    </div>
-                                    <div class="desc-item" style="">
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore id nihil molestiae mollitia beatae, architecto similique, vitae eveniet cumque dignissimos eum laboriosam iure reiciendis veritatis, corporis facere illo eligendi reprehenderit.
-                                    </div>
-                                    <div class="button-link">
-                                        <a href="#"><i class="fa fa-link"></i></a>
-                                    </div>
-                                </div>
-                                <div class="title-item">
-                                    <h3><a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, qui.</a></h3>
-                                </div>
-                                <div class="no-item">
-                                    <div class="in-no-item">
-                                        <span><i class="fa fa-eye"></i>100</span>
-                                        <span><i class="fa fa-thumbs-o-up"></i>10</span>
-                                        <span><i class="fa fa-thumbs-o-down"></i>10</span>
-                                        <span><i class="fa fa-comment-o"></i>10</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- end item -->
-                        </div>
-                        <!-- end of item -->
-                    </div>
-            </div>
-        </div>
-    </section>
-    <!-- end sory home -->
+            </section>
+            <!-- end movie home -->
+        @endforeach
+    @endif
+
+
 @stop

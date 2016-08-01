@@ -11,9 +11,14 @@
 |
 */
 
-Route::get('/', function () {
-    return view('layout.home');
-});
+Route::get('/', [
+	'as' => 'front.home',
+	'uses' => 'ArticleController@get_home_article'
+	]);
+Route::get('/{url}.{id}', [
+	'as' => 'front.detail',
+	'uses' => 'ArticleController@detail_home_article'
+	]);
 Route::get('/detail', function(){
 	return view('article.detail');
 });

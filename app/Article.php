@@ -11,6 +11,6 @@ class Article extends Model
 
     public function categories()
     {
-    	return $this->belongsTo('App\Category');
+    	return $this->belongsTo('App\Category', 'category_id');
     }
 }

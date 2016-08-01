@@ -10,7 +10,7 @@
 					<div class="wrapper-post">
 						<div class="dt-top">
 							<div class="dt-title">
-								<h1><a href="">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse, tenetur!</a></h1>
+								<h1><a href="{{$article[0]->url.'.'.$article[0]->id}}">{{$article[0]->title}}</a></h1>
 							</div>
 							<div class="dt-share">
 								<a href="#" class="sc sc-fb"><i class="fa fa-facebook"></i></a>
@@ -18,25 +18,29 @@
 	                            <a href="#" class="sc sc-pt"><i class="fa fa-pinterest"></i></a>
 							</div>
 							<div class="dt-statis">
-								<span><i class="fa fa-eye"></i>100</span>
-								<span><i class="fa fa-thumbs-o-up"></i>100</span>
-								<span><i class="fa fa-thumbs-o-down"></i>100</span>
+								<span><i class="fa fa-eye"></i>{{$article[0]->viewcount}}</span>
+								<span><i class="fa fa-thumbs-o-up"></i>{{$article[0]->likecount}}</span>
+								<span><i class="fa fa-thumbs-o-down"></i>{{$article[0]->dislikecount}}</span>
 							</div>
 						</div>
 						
 						<div class="dt-infor">
-							In <a href="#">Lorem ipsum dolor sit amet.</a> by <a href="#">admin</a>, at 10:10 AM March 10th 2016
+							In <a href="#">{{$article[0]->categories->title}}</a> by <a href="{{url('/author/admin')}}">admin</a>, at 10:10 AM March 10th 2016
 						</div>
 						
 						<div class="dt-content">
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta obcaecati quod nemo aperiam animi voluptas, asperiores voluptatibus! Unde magnam nesciunt mollitia ea possimus, error laborum eaque dicta officia est enim, eveniet asperiores, facere, in. Laboriosam veritatis exercitationem labore aliquid dolorem, dolorum, dolor, magni pariatur iste vero incidunt officiis voluptatem enim eum dicta dolore et, officia laudantium deserunt ducimus impedit harum! Obcaecati omnis distinctio quae optio odit ipsam atque suscipit molestias saepe. Nostrum porro autem, incidunt ut accusamus sed, cumque nesciunt minus fugit illum delectus necessitatibus, vel recusandae earum. Animi delectus molestiae eaque vel asperiores quibusdam culpa placeat tempora commodi. Sint!
+							{!!$article[0]->content!!}
 						</div>
 						<div class="dt-tag block">
 							<div class="tag-tit block-cap">
 								<h2>TAGS</h2>
 							</div>
 							<div class="tag-list">
-								<a href="#">haha</a><a href="#">ahihi</a><a href="#">nono</a>
+								@if ($article[0]->tag != "")
+	                                @foreach(explode(',', trim($article[0]->tag, ',')) as $tag) 
+	                                    <a class="tag_{{rand(100,1000)}}" class="n-tg">{{$tag}}</a>
+	                                @endforeach
+                                @endif
 							</div>
 						</div>
 						<div class="dt-cate block">

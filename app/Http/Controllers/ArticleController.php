@@ -144,4 +144,28 @@ class ArticleController extends Controller
         $article->delete();
     }
 
+    public function get_home_article()
+    {
+        $featured = Article::where('status', '=', '1')->orderBy('viewcount', 'DESC')->take(5)->get();
+        $newest = Article::where('status', '=', 1)->orderBy('created_at')->take(5)->get();
+        $cate = Category::with(['articles'=>function($query){
+            $query->orderBy('created_at', 'DESC');
+        }])->get()->map(function($cate){
+            $cate->articles = $cate->articles->take(5);
+            return $cate;
+        });
+       
+        return view('layout.home')->with(['featured'=>$featured, 'newest'=>$newest, 'cate'=>$cate]);
+    }
+
+    public function detail_home_article($url='', $id='')
+    {
+        $article = Article::with('categories')->where('id','=', $id)->where('url', '=', $url)->get();
+        if($article->count()==0){
+            return redirect()->route('front.home');
+        }else{
+            return view('article.detail')->with(['article'=>$article]);
+        }
+    }
+
 }

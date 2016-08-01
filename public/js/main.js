@@ -1,21 +1,23 @@
 $(function(){
-	$('#featured-home .item-block').each(function(){
-		var id = $(this).attr('id');
+	$('.item-block.item-video').each(function(){
+		var id = $(this).attr('id').substr(8,30);
+		var $strid = $(this).attr('id');
+		console.log(id);
 			// alert(id.length);
-		$('#'+id+' .thumb-item').html('Loading...');
-		$('#'+id+' .title-item a').html('Loading...');
-		$('#'+id+' .no-item span .count').html('...');
+		$('#'+$strid+' .thumb-item').html('Loading...');
+		$('#'+$strid+' .title-item a').html('Loading...');
+		$('#'+$strid+' .no-item span .count').html('...');
 	$.ajax({
 		url: 'https://www.googleapis.com/youtube/v3/videos?id='+id+'&key=AIzaSyAJjL8TE8BQ2TwwuanBLdHixq_RCLpRvBE&part=snippet,statistics',
 		dataType: 'json',
         // cache: false,
 		success: function(data){
-			$('#'+id+' .thumb-item').html('<iframe width="100%" height="100%" src="https://www.youtube.com/embed/'+id+'" frameborder="0" allowfullscreen></iframe>');
-			$('#'+id+' .title-item a').html(data.items[0].snippet.title);
-			$('#'+id+' .no-item span .viewCount').html(data.items[0].statistics.viewCount);
-			$('#'+id+' .no-item span .likeCount').html(data.items[0].statistics.likeCount);
-			$('#'+id+' .no-item span .dislikeCount').html(data.items[0].statistics.dislikeCount);
-			$('#'+id+' .no-item span .commentCount').html(data.items[0].statistics.commentCount);
+			$('#'+$strid+' .thumb-item').html('<iframe width="100%" height="100%" src="https://www.youtube.com/embed/'+id+'" frameborder="0" allowfullscreen></iframe>');
+			$('#'+$strid+' .title-item a').html(data.items[0].snippet.title);
+			$('#'+$strid+' .no-item span .viewCount').html(data.items[0].statistics.viewCount);
+			$('#'+$strid+' .no-item span .likeCount').html(data.items[0].statistics.likeCount);
+			$('#'+$strid+' .no-item span .dislikeCount').html(data.items[0].statistics.dislikeCount);
+			$('#'+$strid+' .no-item span .commentCount').html(data.items[0].statistics.commentCount);
 		},
 		error: function(){
 			console.log('fail');

@@ -62,7 +62,7 @@
                                     </div>
                                     @if($article[0]->type=='video')
                                         <div class="form-group form-idv">
-                                            <label for="">id video youtube (https://www.youtube.com/watch?v=<strong style="color:red">Zs-t1Iwou_s</strong> hoặc https://youtu.be/<strong style="font-size: 0.7em;color:red">GOOq_wCAaoQ</strong>)</label>
+                                            <label for="">id video youtube (https://www.youtube.com/watch?v=<strong style="font-size: 0.7em;color:red">Zs-t1Iwou_s</strong> hoặc https://youtu.be/<strong style="font-size: 0.7em;color:red">GOOq_wCAaoQ</strong>)</label>
                                             <div class="group-btn">
                                                 <input type="text" name="a_idv" class="form-control" id="a_idv_id" value="{{$article[0]->idv}}" placeholder="id video youtube">
                                             </div>

@@ -18,7 +18,7 @@
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 					<div class="wrapper-post">
 						<div class="dt-title">
-							<h1><a href="">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse, tenetur!</a></h1>
+							<h1><a href="{{$article->url.$article->id}}">{{$article->title}}</a></h1>
 						</div>
 						<div class="dt-infor">
 							In <a href="#">Lorem ipsum dolor sit amet.</a> by <a href="#">admin</a>, at 10:10 AM March 10th 2016
