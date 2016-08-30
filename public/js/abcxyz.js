@@ -1,4 +1,13 @@
+//***********************************
+// General Variable For Global
+// This can be edit
+//***********************************
+var _URL_ADMIN = '/abcd';
+
 $(function(){
+
+
+
     //******************************
     // SHOW TOOLTIP OPTION FOR ITEM
     //******************************
@@ -41,7 +50,7 @@ $(function(){
                 $_txtTr.val($vlStr);
             }
             $this = $(this);
-            ajaxCheckExists($this, 'a_title_chk', $this.val(), '_e_title', 'form-title', 'tiêu tồn tại. vui lòng kiểm tra lại');
+            ajaxCheckExists($this, 'a_title_chk', $this.val(), '_e_title', 'form-title', 'tiêu đề tồn tại. vui lòng kiểm tra lại');
             $_txtT.css({'border-color':'#16a085'});
         }else{
             $_txtT.css({'border-color':'#e74c3c'});
@@ -68,6 +77,197 @@ $(function(){
             $(this).parents().find('.form-idv').remove();
         }
     });
+
+    // ****************************************
+    // TYPE MENU
+    // ****************************************
+    $('.form-menu input[type=radio][name=a_type]').on('change', function(){
+         if(this.value=='none'){
+            $_this = this;
+            $(this).parents().find('.form-type-category').remove();
+            $(this).parents().find('.form-type-link').remove();
+            $(this).parents().find('.form-type-article').remove();
+            if($(this).parents().find('.form-create').hasClass('form-update')){
+                var idv = $(this).parents().find('.form-type').attr('id');
+            }else{
+                var idv ='';
+            }
+        }else if(this.value=='link'){
+            $_this = this;
+            $(this).parents().find('.form-type-category').remove();
+            $(this).parents().find('.form-type-article').remove();
+            if($(this).parents().find('.form-create').hasClass('form-update')){
+                var idv = $(this).parents().find('.form-type').attr('id');
+            }else{
+                var idv ='';
+            }
+            var _get_Data = '';
+            if($('.form-create').hasClass('form-update')){
+                _get_Data = $_this.id;
+            }
+            var $frn ='<div class="form-group form-type-link"><label for="">đường dẫn tùy chỉnh</label><div class="group-btn"><input type="text" name="a_link" class="form-control" id="a_link_id" value="'+_get_Data+'" placeholder="nhập đường dẫn vào đây..."></div></div>';
+            $($frn).insertAfter('.form-type');
+        
+        }else if(this.value=='category'){
+            $_this = this;
+            $(this).parents().find('.form-type-link').remove();
+            $(this).parents().find('.form-type-article').remove();
+            
+            $.ajax({
+                type: 'GET',
+                url: _URL_ADMIN+'/menu/getdata_object',
+                data: 'type=category',
+                beforeSend: function(){
+                    $('<div class="_temp_loading">đang tải chủ đề...</div>').insertAfter('.form-type');
+                },
+                success: function(data){
+                    //remove loading after success
+                    $('._temp_loading').remove();
+                    //print selectd if form is update
+                    var _get_ID = 0; // get ID category
+                    var _slt ='';//assign selected
+                    if($('.form-create').hasClass('form-update')){
+                        _get_ID = $_this.id.substr(16, 30);
+                    }
+                    //
+                    var $frn = '';
+                    $frn += '<div class="form-group form-inline form-type-category"><label for="">chủ đề</label><div class="pad"><select name="a_category" id="a_category_id" class="form-control ">';
+                    for (var i = 0; i < data.length; i++) {
+                        if(_get_ID==data[i].id){_slt="selected";}//check if id_update = id_data
+                        $frn += '<option '+_slt+' value="'+data[i].id+'">'+data[i].title+'</option>';
+                    }
+                    $frn += '</select></div></div>';
+                    $($frn).insertAfter('.form-type');
+
+                },
+                error:function(){
+                    console.log('fail');
+                }
+            });
+        }else{
+            $_this = this;
+            $(this).parents().find('.form-type-link').remove();
+            $(this).parents().find('.form-type-category').remove();
+            var $frn ='<div class="form-type-article">bài viết</div>';
+             $.ajax({
+                type: 'GET',
+                url: _URL_ADMIN+'/menu/getdata_object',
+                data: 'type=article',
+                beforeSend: function(){
+                    $('<div class="_temp_loading">đang tải bài viết...</div>').insertAfter('.form-type');
+                },
+                success: function(data){
+                    $('._temp_loading').remove();
+                    var _get_ID = 0; // get ID article
+                    var _slt ='';//assign selected
+                    if($('.form-create').hasClass('form-update')){
+                        _get_ID = $_this.id.substr(15, 30);
+                    }
+                    var $frn = '';
+                    $frn += '<div class="form-group form-inline form-type-article"><label for="">bài viết</label><div class="pad"><select name="a_article" id="a_article_id" class="form-control ">';
+                    for (var i = 0; i < data.length; i++) {
+                        if(_get_ID==data[i].id){_slt="selected";}//check if id_update = id_data
+                        $frn += '<option '+_slt+' value="'+data[i].id+'">'+data[i].title+'</option>';
+                    }
+                    $frn += '</select></div></div>';
+                    $($frn).insertAfter('.form-type');
+                },
+                error:function(){
+                    console.log('fail');
+                }
+            });
+        }
+    });
+
+    // ***************************************
+    // DELETE MENU AJAX
+    // ***************************************
+
+    var $mn = $('.menu-list li .m_opt');
+    $mn.on('click', function(event){
+        var $_this = $(this);
+
+        var mstr = "";
+        var mtype = 0;
+        var mclass = '_hide';
+        var micon = 'fa-eye';
+
+        if($_this.hasClass('m_hide')){
+            mstr = 'ẩn';
+            mtype = 0;
+            mclass = '_hide';
+            micon_a = 'fa-eye m_show';
+            micon_o = 'fa-eye-slash m_hide';
+        }else if($(this).hasClass('m_show')){
+            mstr = 'hiện';
+            mtype = 1;
+            mclass = '_show';
+            micon_a = 'fa-eye-slash m_hide';
+            micon_o = 'fa-eye m_show';
+
+        }else{
+            mstr = 'xóa';
+            mtype = 2;
+            mclass = '';
+            micon_a = '';
+            micon_o = '';
+        }
+        if($_this.parents('.m_root').length > 0){
+            var mncf = confirm('menu này chứa nhiều menu con khác. bạn thật sự muốn '+mstr+' menu này không?');
+        }else{
+            var mncf = confirm('bạn có muốn '+mstr+' menu này không?');
+        }
+        if(mncf==true){
+            $('body').prepend('<div class="__ntFx"></div>');
+            var mn_id = $(this).attr('id').substr(3,7);
+            $.ajax({
+                type :'GET',
+                url : _URL_ADMIN+'/menu/hide',
+                data: {'_id': mn_id, '_mtype': mtype},
+                beforeSend: function () {
+                    $('.__ntFx').html('đang xử lý liệu...').addClass('__ss');
+                },
+                success: function(data){
+                    if(data == 'ok' ){
+                        //add class to css this item menu
+                        $('.mn_'+mn_id).addClass(mclass);
+
+                        //show message and hide it after 1s
+                        $('.__ntFx').html(mstr+' menu thành công').addClass('__ss');
+                        setTimeout(function(){
+                            $('.__ntFx.__ss').fadeOut(1000).remove();
+                        },1000);
+
+                        if(mtype == 2){
+                            $('.mn_'+mn_id).fadeOut('slow').remove();
+                        }
+
+                        //check list and display if list is empty after remove 
+                        if($('.menu-list li').length == 0 ){
+                            $('.menu-list').html('chưa có menu nào được tạo');
+                        }
+
+                        //alternative icon option
+                        $_this.removeClass(micon_o).addClass(micon_a);
+
+                    }else{
+                        $('.__ntFx').html('Xử lý lỗi. '+mstr+' menu không thành công').addClass('__ss');
+                        setTimeout(function(){
+                            $('.__ntFx.__ss').fadeOut(1000).remove();
+                        },1000);
+                    } 
+                },
+                error: function(){
+                    $('.__ntFx').html('Lỗi. '+mstr+' menu không thành công').addClass('__ss');
+                    setTimeout(function(){
+                        $('.__ntFx.__ss').fadeOut(1000).remove();
+                    },1000);
+                }
+            });
+        }
+        
+    });
+
     //*****************************************
     // VALIDATE FORM CREATE ARTICLE
     //*****************************************
@@ -83,53 +283,130 @@ $(function(){
         return errfile;
 
         });
-    var $btnAtc = $('.add-article');
+    var $btnAtc = $('.add-article, .add-category, .add-menu');
     $btnAtc.on('click', function(event){
-        var atitle = a_form_create.a_title.value;
-        var aurl = a_form_create.a_url.value;
-        var acate = a_form_create.a_cate.value;
-        var atype = a_form_create.a_type.value;
-        var adesc = a_form_create.a_desc.value;
-        var acontent = CKEDITOR.instances.a_content_id.getData();//$('textarea#a_content_id').val();
-        var athumb = a_form_create.a_thumbnail.value;
-        var atag = a_form_create.a_tag.value;//a_form_create.a_tag.value;
-        var astatus = a_form_create.a_status.value;
+        if($('.form-create').hasClass('form-article')){
+            var atitle = a_form_create.a_title.value;
+            var aurl = a_form_create.a_url.value;
+            var acate = a_form_create.a_cate.value;
+            var atype = a_form_create.a_type.value;
+            var adesc = a_form_create.a_desc.value;
+            var acontent = CKEDITOR.instances.a_content_id.getData();//$('textarea#a_content_id').val();
+            var athumb = a_form_create.a_thumbnail.value;
+            var atag = a_form_create.a_tag.value;//a_form_create.a_tag.value;
+            var astatus = a_form_create.a_status.value;
 
+            if( atitle.length==0||aurl.length==0||adesc.length==0||acontent.length==0|| (athumb.length==0 && !$('.form-create').hasClass('form-update')) ||atag.length==0){
+                alert('vui lòng không để trống mục nào');
+                return false
+            }
+            if(atitle.length < 10 || atitle.length > 100){
+                alert('tiêu đề quá ngắn hoặc quá dài (tối thiểu 10 và tối đa 100 ký tự)');
+                return false;
+            }else if($('#a_title_id').hasClass('_error')){
+                alert('có lỗi ở tiêu đề. vui lòng kiểm tra lại');
+                return false;
+            }
 
-        if( atitle.length==0||aurl.length==0||adesc.length==0||acontent.length==0|| (athumb.length==0 && !$('.form-create').hasClass('form-update')) ||atag.length==0){
-            alert('vui lòng không để trống mục nào');
-            return false
-        }
-        if(atitle.length < 10 || atitle.length > 100){
-            alert('tiêu đề quá ngắn hoặc quá dài (tối thiểu 10 và tối đa 100 ký tự)');
-            return false;
-        }else if($('#a_title_id').hasClass('_error')){
-            alert('có lỗi ở tiêu đề. vui lòng kiểm tra lại');
-            return false;
+            if(aurl.length < 5 || aurl.length > 200){
+                alert('url quá ngắn hoặc quá dài (tối thiểu 5 và tối đa 150 ký tự)');
+                return false;
+            }
+            if(adesc.length < 10 || adesc.length > 1000){
+                alert('mô tả quá ngắn hoặc quá dài (tối thiểu 5 và tối đa 300 ký tự)');
+                return false;
+            }
+            if(acontent.length < 30){
+                alert('nội dung quá ngắn (tối thiểu 30 ký tự)');
+                return false;
+            }
+            // check size of image
+            if(errfile == false){
+                alert('ảnh quá lớn (tối đa 2Mb). vui lòng kiểm tra lại');
+                return false;
+            }
+            //check extension of image
+            if(fileValidate(athumb)==false){
+                alert('tệp '+athumb+' cần định dạng JEPG/JPG/PNG/BMP/GIF. vui lòng kiểm tra lại');
+                return false;
+            }
+        }else if($('.form-create').hasClass('form-menu')){
+            var atitle = a_form_create.a_title.value;
+            var aurl = a_form_create.a_url.value;
+            //check if have input link field
+            if($(this).parents('.form-create').find('.form-type-link').length>0){
+                var alink = a_form_create.a_link.value;
+                //validate before submit form
+                if( alink.length==0 || alink.length>200){
+                    alert('vui lòng không để trống mục nào');
+                    return false
+                }else if( alink.length <10 || alink.length>200){
+                    alert('đường dẫn đến menu quá ngắn hoặc quá dài. tối thiểu 10 và tối đa 200 kí tự');
+                    return false
+                }
+            }
+            if( atitle.length==0||aurl.length==0){
+                alert('vui lòng không để trống mục nào');
+                return false
+            }
+            if(atitle.length < 5 || atitle.length > 100){
+                alert('tên menu quá ngắn hoặc quá dài (tối thiểu 10 và tối đa 100 ký tự)');
+                return false;
+            }else if($('#a_title_id').hasClass('_error')){
+                alert('có lỗi ở tên menu. vui lòng kiểm tra lại');
+                return false;
+            }
+
+            if(aurl.length < 5 || aurl.length > 200){
+                alert('url quá ngắn hoặc quá dài (tối thiểu 5 và tối đa 150 ký tự)');
+                return false;
+            }else if($('#a_url_id').hasClass('_error')){
+                alert('có lỗi ở url. vui lòng kiểm tra lại');
+                return false;
+            }
+            
+            
+        }else{
+            var atitle = a_form_create.a_title.value;
+            var aurl = a_form_create.a_url.value;
+            var adesc = a_form_create.a_desc.value;
+            var athumb = a_form_create.a_thumbnail.value;
+            var astatus = a_form_create.a_status.value;
+
+            if( atitle.length==0||aurl.length==0||adesc.length==0 || (athumb.length==0 && !$('.form-create').hasClass('form-update'))){
+                alert('vui lòng không để trống mục nào');
+                return false
+            }
+            if(atitle.length < 10 || atitle.length > 100){
+                alert('tiêu đề quá ngắn hoặc quá dài (tối thiểu 10 và tối đa 100 ký tự)');
+                return false;
+            }else if($('#a_title_id').hasClass('_error')){
+                alert('có lỗi ở tiêu đề. vui lòng kiểm tra lại');
+                return false;
+            }
+
+            if(aurl.length < 5 || aurl.length > 200){
+                alert('url quá ngắn hoặc quá dài (tối thiểu 5 và tối đa 150 ký tự)');
+                return false;
+            }
+            if(adesc.length < 10 || adesc.length > 1000){
+                alert('mô tả quá ngắn hoặc quá dài (tối thiểu 5 và tối đa 300 ký tự)');
+                return false;
+            }
+            
+            // check size of image
+            if(errfile == false){
+                alert('ảnh quá lớn (tối đa 2Mb). vui lòng kiểm tra lại');
+                return false;
+            }
+            //check extension of image
+            if(fileValidate(athumb)==false){
+                alert('tệp '+athumb+' cần định dạng JEPG/JPG/PNG/BMP/GIF. vui lòng kiểm tra lại');
+                return false;
+            }
         }
 
-        if(aurl.length < 5 || aurl.length > 200){
-            alert('url quá ngắn hoặc quá dài (tối thiểu 5 và tối đa 150 ký tự)');
-            return false;
-        }
-        if(adesc.length < 10 || adesc.length > 1000){
-            alert('mô tả quá ngắn hoặc quá dài (tối thiểu 5 và tối đa 300 ký tự)');
-            return false;
-        }
-        if(acontent.length < 30){
-            alert('nội dung quá ngắn (tối thiểu 30 ký tự)');
-            return false;
-        }
-        // check size of image
-        if(errfile == false){
-            alert('ảnh quá lớn (tối đa 2Mb). vui lòng kiểm tra lại');
-            return false;
-        }
-        //check extension of image
-        if(fileValidate(athumb)==false){
-            alert('tệp '+athumb+' cần định dạng JEPG/JPG/PNG/BMP/GIF. vui lòng kiểm tra lại');
-            return false;
-        }
+        
 
         return true;
     });
@@ -170,9 +447,9 @@ $(function(){
                 $('#a_tag_id').val(tagfield); // set lại tag cho input hidden
                 
             });
-            if($('.form-create').hasClass('form-update')){
-                $('.form-create').removeClass('form-update');
-            }
+            // if($('.form-create').hasClass('form-update')){
+            //     $('.form-create').removeClass('form-update');
+            // }
             id++;
         }
     });
@@ -241,16 +518,26 @@ $(function(){
     // *************************************************************
     $btn_del = $('.a_del');
     $btn_del.on('click', function(event){
-        var _cfd = confirm('bạn muốn xóa bài viết này?');
         var _id = $(this).attr('data-id').substr(6,20);
+        var _type = $(this).parents('.aitem').attr('type'); 
         var $_strId = $('.aitem_'+_id);
-       
+        var _url = '';
+        var _ntype='';
+        if(_type=='category'){
+            _ntype = 'chủ đề';
+            _url = _URL_ADMIN+'/category/destroy';
+        }else{
+            _ntype = 'bài viết';
+            _url = _URL_ADMIN+'/article/destroy';
+        }
         $(this).parents('._exp_dropdown').removeClass('_aoexp');
+
+        var _cfd = confirm('bạn muốn xóa '+_ntype+' này?');
         if(_cfd==true){
             $('body').prepend('<div class="__ntFx"></div>');
             $.ajax({
                 type: 'GET',
-                url: '/abcd/article/destroy',
+                url: _url,
                 data: {'_id': _id},
                 beforeSend: function () {
                     $('.__ntFx').html('đang xử lý liệu...').addClass('__ss');
@@ -268,7 +555,7 @@ $(function(){
                 }
             })
         }else{
-             return fasle;
+             return false;
         }
         event.preventDefault();
 
@@ -306,7 +593,7 @@ function ajaxCheckExists(inputCheck, varCheck, valueCheck, compareData, classFor
     }
     $.ajax({
             type: 'POST',
-            url: '/abcd/article/checkexists',
+            url: _URL_ADMIN+'/article/checkexists',
             data: jsonData,
             success: function(data){
                 console.log(data);

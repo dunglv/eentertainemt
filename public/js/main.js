@@ -25,7 +25,7 @@ $(function(){
 	});
 
 
-	})
+	});
 	// var tt = [];
 	// $('#'+id+' .thumb-item').html('Loading...');
 	// $('#'+id+' .title-item a').html('Loading...');
@@ -40,6 +40,41 @@ $(function(){
 	// 	     console.log('video not exists');
 	// 	 }   
 	// });
+
+	// *********************************
+	// AJAX Category Pagination JQuery
+	//**********************************
+	var page = 2;
+	$(document).on('click', '.btn-more', function(event){
+		event.preventDefault();
+		var total = $(this).attr('id').split('_')[1];
+		var category = $(this).attr('id').split('_')[0];
+		// console.log($(this).attr('href').split('page=')[1]);
+		// var page = $(this).attr('href').split('page=')[1];
+		getArticles(page, category);
+		if (page == total) {
+			$(this).addClass('hide');
+		}
+		
+		page++;
+
+
+	});
+
+	function getArticles(page, category) {
+		$.ajax({
+			url: '/ajax/articles?page='+page+'&category='+category,
+			beforeSend: function(){
+				$('.block-content').addClass('loading');
+			},
+
+		}).done(function(data){
+			// console.log(data);
+			$('.block-content').append(data);
+				$('.block-content').removeClass('loading');
+		});
+	}
 	
+
 });
 

@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Article;
 use App\Category;
 use Illuminate\Support\Facades\Input;
+use Auth;
 
 class AdminController extends Controller
 {
@@ -35,6 +36,24 @@ class AdminController extends Controller
     	return view('admin.article_create');
     }
 
+    public function getLogin()
+    {
+    	return view('admin.login');
+    }
+
+    public function postLogin()
+    {
+    	 $userdata = array(
+	        'email'     => Input::get('email'),
+	        'password'  => Input::get('password')
+	    );
+
+    	if(Auth::attempt($userdata)){
+    		return redirect()->route('admin.home');
+    	}
+
+    	return redirect()->route('admin.login')->with('flash_error', 'Email hoặc mật khẩu không đúng. Hãy thử lại.');
+    }
 
     public function upload_img()
     {
@@ -45,5 +64,9 @@ class AdminController extends Controller
     	}
     }
 
-
+    public function logout()
+    {
+    	Auth::logout();
+    	return redirect()->route('admin.home');
+    }
 }

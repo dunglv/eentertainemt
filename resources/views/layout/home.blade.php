@@ -1,6 +1,9 @@
 @extends('layout.master')
 @section('title', 'Home page')
 @section('body')
+<!-- Slider -->
+    @include('partials.slider')
+<!-- End Slider -->
 <!-- begin featured -->
     <section id="featured-home" class="block">
         <div class="container">
@@ -48,11 +51,11 @@
                                             {{substr($fea->description, 0, 200).'...'}}
                                         </div>
                                         <div class="button-link">
-                                            <a href="{{url($fea->url.'.'.$fea->id)}}"><i class="fa fa-link"></i></a>
+                                            <a href="{{route('front.detail_article', $fea->url)}}"><i class="fa fa-link"></i></a>
                                         </div>
                                     </div>
                                     <div class="title-item">
-                                        <h3><a href="{{url($fea->url.'.'.$fea->id)}}">{{$fea->title}}</a></h3>
+                                        <h3><a href="{{route('front.detail_article', $fea->url)}}">{{$fea->title}}</a></h3>
                                     </div>
                                     <div class="no-item">
                                         <div class="in-no-item">
@@ -121,11 +124,11 @@
                                             {{substr($new->description, 0, 200).'...'}}
                                         </div>
                                         <div class="button-link">
-                                            <a href="{{url($new->url.'.'.$new->id)}}"><i class="fa fa-link"></i></a>
+                                            <a href="{{route('front.detail_article', $new->url)}}"><i class="fa fa-link"></i></a>
                                         </div>
                                     </div>
                                     <div class="title-item">
-                                        <h3><a href="{{url($new->url.'.'.$new->id)}}">{{$new->title}}</a></h3>
+                                        <h3><a href="{{route('front.detail_article', $new->url)}}">{{$new->title}}</a></h3>
                                     </div>
                                     <div class="no-item">
                                         <div class="in-no-item">
@@ -155,7 +158,7 @@
                     <div class="row">
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                             <div class="block-cap">
-                                <h2>{{$cat->title}}</h2>
+                                <h2><a href="{{route('front.detail_category', $cat->url)}}">{{$cat->title}}</a></h2>
                             </div>
                         </div>
                         <div class="block-content">
@@ -196,11 +199,11 @@
                                                         {{substr($art->description, 0, 200).'...'}}
                                                     </div>
                                                     <div class="button-link">
-                                                        <a href="{{url($art->url.'.'.$art->id)}}"><i class="fa fa-link"></i></a>
+                                                        <a href="{{route('front.detail_article', $art->url)}}"><i class="fa fa-link"></i></a>
                                                     </div>
                                                 </div>
                                                 <div class="title-item">
-                                                    <h3><a href="{{url($art->url.'.'.$art->id)}}">{{$art->title}}</a></h3>
+                                                    <h3><a href="{{route('front.detail_article', $art->url)}}">{{$art->title}}</a></h3>
                                                 </div>
                                                 <div class="no-item">
                                                     <div class="in-no-item">

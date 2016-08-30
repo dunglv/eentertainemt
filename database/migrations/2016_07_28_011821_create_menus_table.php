@@ -16,9 +16,11 @@ class CreateMenusTable extends Migration
             $table->increments('id');
             $table->string('title', 50);
             $table->string('url', 100);
-            $table->text('link')->nullable();
-            $table->text('category')->nullable();
-            $table->integer('parent');
+            $table->string('type', 20);
+            $table->string('link', 200)->nullable();
+            $table->string('category', 200)->nullable();
+            $table->string('article', 200)->nullable();
+            $table->integer('parent')->default(0);
             $table->integer('status')->default(0);
             $table->timestamps();
         });

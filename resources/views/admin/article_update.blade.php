@@ -1,5 +1,5 @@
 @extends('admin.home')
-@section('title', 'viết bài mới')
+@section('title', 'cập nhật bài viết')
 @section('ojs', HTML::script('/lib/ckeditor/ckeditor.js'))
 @section('ostyle', HTML::style('/css/abcxyz/ckeditor.css'))
 @section('body')
@@ -11,8 +11,8 @@
                         <div class="block-cap">
                             <h2>cập nhật bài viết</h2>
                         </div>
-                         @if(!empty($notied))
-                            @if($notied=='ok')
+                         @if(Session::has('notied'))
+                            @if(Session::get('notied')=='ok')
                                 <div class="i_tool bg-success" style="padding:5px; margin: 10px 0;background: #31bfa3;color:#fff;">Cập nhật thành công</div>
                             @else
                                 <div class="i_tool bg-danger" style="padding:5px; margin: 10px 0;background: #e74c3c;color:#fff;">Lỗi! Không thể cập nhật! Vui lòng kiểm tra lại</div>
@@ -20,7 +20,7 @@
                         @endif
                         <div class="block-content">
                            
-                            <div class="form-create form-field form-update">
+                            <div class="form-create form-article form-field form-update">
                                 {!! 
                                 Form::open([
                                     'method' => 'put',
@@ -88,15 +88,13 @@
                                         <div class="a-tag">
                                             <div class="add-tag in-a-tag form-inline">
                                                 <div class="add-wrap-tag">
-                                                     @if ($article[0]->tag != "")
-                                                          @foreach(explode(',', trim($article[0]->tag, ',')) as $tag) 
-                                                            <span id="n_tg_{{rand(100,1000)}}" class="n-tg">{{$tag}} <i class="_t_close fa fa-times"></i></span>
-                                                          @endforeach
-                                                        @endif
+                                                  @foreach($tags as $tag) 
+                                                    <span id="n_tg_{{rand(100,1000)}}" class="n-tg">{{$tag->title}} <i class="_t_close fa fa-times"></i></span>
+                                                  @endforeach
                                                 </div>
                                                
                                                 <input type="text" class="form-control e-tag"  id="_e_tag">
-                                                <input type="hidden" name="a_tag" id="a_tag_id" value="{{$article[0]->tag}}">
+                                                <input type="hidden" name="a_tag" id="a_tag_id" value="@foreach($tags as $tag){{$tag->title.','}}@endforeach">
                                             </div>
                                             <div class="_finfor">mỗi tag cách nhau dấu phẩy</div>
                                         </div>
@@ -104,8 +102,8 @@
                                     <div class="form-group">
                                         <label for="">kích hoạt</label>
                                         <div class="pad opt_radio">
-                                            <label for="a_status_off"><input type="radio" id="a_status_off" class="opt_off" name="a_status" value="0" checked="true">tắt</label>
-                                            <label for="a_status_on"><input type="radio" id="a_status_on" class="opt_on" name="a_status" value="1">bật</label>
+                                            <label for="a_status_off"><input type="radio" @if($article[0]->status==0) checked @endif id="a_status_off" class="opt_off" name="a_status" value="0" checked="true">tắt</label>
+                                            <label for="a_status_on"><input type="radio" @if($article[0]->status==1) checked @endif id="a_status_on" class="opt_on" name="a_status" value="1">bật</label>
                                         </div>
                                     </div>
                                     <input type="hidden" name="_post_id" value="{{$article[0]->id}}">

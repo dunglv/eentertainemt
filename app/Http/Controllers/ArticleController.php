@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Article;
 use App\Category;
+use App\Tag;
+use App\Comment;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 class ArticleController extends Controller
@@ -19,7 +21,23 @@ class ArticleController extends Controller
 
     public function store()
     {
-    	
+        // $tags = Input::get('a_tag');
+        // foreach (explode(',', trim($tags, ',')) as $tag) {
+        //     $getTag = Tag::where('title', $tag)->get();
+        //     if($getTag->count() == 0){
+        //         $iTags = new Tag;
+        //         $iTags->title = $tag;
+        //         $iTags->status = 1;
+        //         $iTags->save();
+        //         // echo $iTags->id;
+        //         $article->tags()->attach($iTags->id);
+        //     }else{
+        //         foreach ($getTag as $tag_n) {
+        //             // $article->tags()->attach($tag_n->id);
+        //         }
+        //     }
+        // }
+        // exit();
     	if (Input::file('a_thumbnail')->isValid()) {
     		$path = public_path().'/images/items/';
 	    	$extension = Input::file('a_thumbnail')->getClientOriginalExtension();
@@ -45,13 +63,29 @@ class ArticleController extends Controller
     	$article->description = Input::get('a_desc');
     	$article->content = Input::get('a_content');
     	$article->thumbnail = '/images/items/'.$filename ;
-    	$article->tag = Input::get('a_tag');
+        $article->status = Input::get('a_status');
+        $tags = Input::get('a_tag');
         if($article->save()){
-            $article->status = Input::get('a_status');
+            //save tag in tag table and article_tag table
+            foreach (explode(',', trim($tags, ',')) as $tag) {
+                $getTag = Tag::where('title', $tag)->get();
+                if($getTag->count() == 0){
+                    $iTags = new Tag;
+                    $iTags->title = $tag;
+                    $iTags->status = 1;
+                    $iTags->save();
+                    $article->tags()->attach($iTags->id);
+                }else{
+                    foreach ($getTag as $tag_n) {
+                        $article->tags()->attach($tag_n->id);
+                    }
+                }
+            }
+            //get all catengories
             $cate = Category::all();
-            return view('admin.article_create')->with(['categories'=> $cate, 'notied'=>'ok']);
+            return redirect()->route('article.create')->with(['categories'=> $cate, 'notied'=>'ok']);
         }else{
-            return view('admin.article_create')->with(['categories'=> $cate, 'notied'=>'error']);
+            return redirect()->route('article.create')->with(['categories'=> $cate, 'notied'=>'error']);
         }
     }
 
@@ -84,7 +118,8 @@ class ArticleController extends Controller
         if(Input::get('type')=='post'){
             if(Input::get('fn')=='edit'){
                 $article = Article::find($id)->where('url','=',$url)->get();
-                return view('admin.article_update')->with(['categories'=> $cate,'article'=>$article]);
+                $tags = $article[0]->tags()->get();
+                return view('admin.article_update')->with(['categories'=> $cate,'article'=>$article, 'tags' => $tags]);
             }
         }
     }
@@ -121,12 +156,38 @@ class ArticleController extends Controller
         $article->thumbnail = $thumb;
         $article->tag = Input::get('a_tag');
         $article->status = Input::get('a_status');
+
+        $tags = Input::get('a_tag');
+        // echo "<pre>";
+        // print_r($tags[0]->title);
+        // echo "</pre>";
+        // exit();
         if($article->save()){
+            //save tag in tag table and article_tag table
+            $article->tags()->detach();
+            foreach (explode(',', trim($tags, ',')) as $tag) {
+                $getTag = Tag::where('title', $tag)->get();
+                if($getTag->count() == 0){
+                    $iTags = new Tag;
+                    $iTags->title = $tag;
+                    $iTags->status = 1;
+                    $iTags->save();
+                    $article->tags()->attach($iTags->id);
+                }else{
+                    foreach ($getTag as $tag_n) {
+                        $article->tags()->attach($tag_n->id);
+                    }
+                }
+            }
+            
             $cate = Category::all();
             $art = Article::find($id)->where('url','=',trim(Input::get('a_url')))->get();
-            return view('admin.article_update')->with(['categories'=> $cate,'article'=>$art, 'notied'=>'ok']);
+            $taglist = $article->tags()->get();
+            // return redirect()->route('article.edit', [Input::get('a_url'), 'type'=> 'post', 'fn'=>'edit', 'post'=> $id])->with(['notied'=>'ok']);
+            return redirect()->route('article.edit', [$article->url, 'type' => 'post', 'fn' => 'edit', 'post' => $id])->with(['categories'=> $cate,'article'=>$art, 'notied'=>'ok', 'tags' => $taglist]);
         }else{
-            return view('admin.article_update')->with(['categories'=> $cate,'article'=>$art, 'notied'=>'error']);
+            $taglist = $article->tags()->get();
+            return redirect()->route('article.edit', [$article->url, 'type' => 'post', 'fn' => 'edit', 'post' => $id])->with(['categories'=> $cate,'article'=>$art, 'notied'=>'error', 'tags' => $taglist]);
         }
     }
 
@@ -151,25 +212,28 @@ class ArticleController extends Controller
         $cate = Category::with(['articles'=>function($query){
             $query->orderBy('created_at', 'DESC');
         }])->get()->map(function($cate){
-            $cate->articles = $cate->articles->take(5);
+            $cate->articles = $cate->articles->where('status', 1)->take(5);
             return $cate;
         });
        
         return view('layout.home')->with(['featured'=>$featured, 'newest'=>$newest, 'cate'=>$cate]);
     }
 
-    public function detail_home_article($url='', $id='')
+    public function detail_home_article($url='')
     {
-        $article = Article::with('categories')->where('id','=', $id)->where('url', '=', $url)->get();
-        $samecate = Article::where('category_id','=', $article[0]->category_id)->where('id','<>', $id)->where('status', '=', 1)->get();
+        $article = Article::with('categories')->with('tags')->where('url', '=', $url)->get();
         // echo '<pre>';
-        // print_r($samecate[0]); 
+        // print_r($article[0]->tags()->get()[0]->title); 
         // echo '</pre>';
         // exit();
         if($article->count()==0){
-            return redirect()->route('front.home');
+            return view('errors.404');
         }else{
-            return view('article.detail')->with(['article'=>$article, 'samecate'=>$samecate]);
+            $tags = $article[0]->tags()->get();
+            $comments = Comment::where('article_id', $article[0]->id)->where('status', 1)->orderBy('id', 'DESC'
+                )->get(); 
+            $samecate = Article::where('category_id','=', $article[0]->category_id)->where('id','<>', $article[0]->id)->where('status', '=', 1)->get();
+            return view('article.detail')->with(['article'=>$article, 'samecate'=>$samecate, 'tags'=> $tags, 'comments' => $comments]);
         }
     }
 

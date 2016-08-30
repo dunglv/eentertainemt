@@ -11,15 +11,15 @@
                         <div class="block-cap">
                             <h2>tạo bài viết mới</h2>
                         </div>
-                        @if(!empty($notied))
-                            @if($notied=='ok')
+                        @if(Session::has('notied'))
+                            @if(Session::get('notied')=='ok')
                                 <div class="i_tool bg-success" style="padding:5px; margin: 10px 0;background: #31bfa3;color:#fff;">bài viết đã được thêm vào</div>
                             @else
                                 <div class="i_tool bg-danger" style="padding:5px; margin: 10px 0;background: #e74c3c;color:#fff;">Lỗi! Không thể tạo bài viết mới! Vui lòng kiểm tra lại</div>
                             @endif
                         @endif
                         <div class="block-content">
-                            <div class="form-create form-field">
+                            <div class="form-create form-field form-article">
                                 {!! 
                                 Form::open([
                                     'method' => 'POST',

@@ -21,7 +21,7 @@
 										</div>
 										<div class="acontent">
 											<div class="atit">
-												<h3><a href="{{$a_a->url}}">{{$a_a->title}}</a></h3>
+												<h3><a target='_blank' href="{{route('front.detail_article', $a_a->url)}}">{{$a_a->title}}</a></h3>
 											</div>
 											<div class="adesc">
 												{{substr($a_a->description, 0, 200).'...'}}
@@ -65,7 +65,7 @@
 										</div>
 										<div class="acontent">
 											<div class="atit">
-												<h3><a href="{{$a_n->url}}">{{$a_n->title}}</a></h3>
+												<h3><a target='_blank' href="{{route('front.detail_article', $a_n->url)}}">{{$a_n->title}}</a></h3>
 											</div>
 											<div class="adesc">
 												{{substr($a_n->description, 0, 200).'...'}}
@@ -113,7 +113,7 @@
 										</div>
 										<div class="acontent">
 											<div class="atit">
-												<h3><a href="{{url($a->url.'-'.$a->id)}}">{{$a->title}}</a></h3>
+												<h3><a target='_blank' href="{{route('front.detail_article', $a->url)}}">{{$a->title}}</a></h3>
 											</div>
 											<div class="adesc">
 												{{substr($a->description,0, 200).'...'}}

@@ -13,8 +13,8 @@ $json = json_decode($videoTitle, true);
 	return false;
 	}
 }
-youtube_title($_GET['id']);
-// echo "<pre>";
-// print_r(youtube_title($_GET['id'])); 
-// echo "</pre>";
+youtube_title('-UCHsqxBqwY');
+echo "<pre>";
+print_r(youtube_title($_GET['id'])); 
+echo "</pre>";
 ?>
