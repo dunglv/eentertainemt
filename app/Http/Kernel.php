@@ -30,6 +30,8 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             // \App\Http\Middleware\Login::class,
+            \App\Http\Middleware\SetLocale::class,
+
         ],
 
         'api' => [

@@ -17,7 +17,7 @@
 
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="{{route('front.home')}}">trang chủ</a></li>
+                    <li><a href="{{route('front.home')}}">{{trans('front.menu.home')}}</a></li>
                     @foreach($menu as $mn)
                         @if($mn->parent == 0)
                             @if($mn->getChildMenuActive($mn->id)->count() > 0)
@@ -64,17 +64,17 @@
                 ])!!}
                     <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
                     <div class="form-group">
-                        <input type="text" name="key" class="form-control" placeholder="Search">
+                        <input type="text" name="key" class="form-control" placeholder="{{trans('front.menu.search')}}">
                     </div>
                 {!!Form::close()!!}
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Ngôn ngữ<b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{trans('front.menu.selectlang')}}<b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">Tiếng Việt</a></li>
-                            <li><a href="#">Tiếng Anh</a></li>
-                            <li><a href="#">Tiếng Trung</a></li>
-                            <li><a href="#">Tiếng Pháp</a></li>
+                            <li><a href="{{route('front.lang', ['lang'=>'vi'])}}">{{trans('front.lang.vi')}}</a></li>
+                            <li><a href="{{route('front.lang', ['lang'=>'en'])}}">{{trans('front.lang.en')}}</a></li>
+                            <li><a href="{{route('front.lang', ['lang'=>'cn'])}}">{{trans('front.lang.cn')}}</a></li>
+                            <li><a href="{{route('front.lang', ['lang'=>'fr'])}}">{{trans('front.lang.fr')}}</a></li>
                         </ul>
                     </li>
                 </ul>

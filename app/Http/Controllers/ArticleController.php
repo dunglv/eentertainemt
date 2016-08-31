@@ -11,6 +11,7 @@ use App\Tag;
 use App\Comment;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
+use Auth;
 class ArticleController extends Controller
 {
     public function create()
@@ -219,20 +220,18 @@ class ArticleController extends Controller
         return view('layout.home')->with(['featured'=>$featured, 'newest'=>$newest, 'cate'=>$cate]);
     }
 
-    public function detail_home_article($url='')
+    public function detail_home_article($url='', Request $request)
     {
         $article = Article::with('categories')->with('tags')->where('url', '=', $url)->get();
-        // echo '<pre>';
-        // print_r($article[0]->tags()->get()[0]->title); 
-        // echo '</pre>';
-        // exit();
         if($article->count()==0){
             return view('errors.404');
         }else{
             $tags = $article[0]->tags()->get();
+            
             $comments = Comment::where('article_id', $article[0]->id)->where('status', 1)->orderBy('id', 'DESC'
                 )->get(); 
             $samecate = Article::where('category_id','=', $article[0]->category_id)->where('id','<>', $article[0]->id)->where('status', '=', 1)->get();
+            
             return view('article.detail')->with(['article'=>$article, 'samecate'=>$samecate, 'tags'=> $tags, 'comments' => $comments]);
         }
     }

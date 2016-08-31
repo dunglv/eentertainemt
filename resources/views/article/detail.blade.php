@@ -80,19 +80,25 @@
 									<h4>hãy trở thành người xét đầu tiên</h4>
 								@endif
 							</div>
-							<div class="dt-comment-form">
-								{!!Form::open([
-									'route' => 'comment.store',
-									'method' => 'post',
-									'class' => 'cmt-form'
-								])!!}
-									<textarea name="comment" id="field_comment" cols="100"  rows="5"></textarea>
-									<input type="hidden" class="cmt_hide_id" value="u_{{Auth::user()->id}},a_{{$article[0]->id}}">
-									<button class="btn btn-primary add-comment" type="submit">Đăng nhận xét</button>
-									<button class="btn btn-primary" type="reset">Nhập lại</button>
 
-								{!!Form::close()!!}
-							</div>
+							@if(Auth::check()==false)
+								<div style="padding: 5px 0; margin-bottom: 20px">Bạn cần <a style="font-weight: 900" href="#">đăng nhập</a> để nhận xét bài viết</div>
+							@else
+								<div class="dt-comment-form">
+									{!!Form::open([
+										'route' => 'comment.store',
+										'method' => 'post',
+										'class' => 'cmt-form'
+									])!!}
+										<textarea name="comment" id="field_comment" cols="100"  rows="5"></textarea>
+										<input type="hidden" class="cmt_hide_id" value="u_{{Auth::user()->id}},a_{{$article[0]->id}}">
+										<button class="btn btn-primary add-comment" type="submit">Đăng nhận xét</button>
+										<button class="btn btn-primary" type="reset">Nhập lại</button>
+
+									{!!Form::close()!!}
+								</div>
+							@endif
+							
 							<div class="dt-comment-list">
 								@if($comments->count() > 0)
 								<ul class="root-comment">
@@ -167,6 +173,7 @@
 			</div>
 		</div>
 	</div>
+@if(Auth::check())
 <script>
 	$(document).on('click', '.add-comment, .reply-cmt', function(event){
 
@@ -232,4 +239,5 @@
 		
 	});
 </script>
+@endif
 @stop

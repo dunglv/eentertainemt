@@ -8,7 +8,8 @@ use App\Article;
 use App\Category;
 use Illuminate\Support\Facades\Input;
 use App\Tag;
-
+use App;
+use Session;
 class HomeController extends Controller
 {
     /**
@@ -57,5 +58,20 @@ class HomeController extends Controller
         return view('article.resulttag')->with(['tags'=>$tags, 'tag' => $tag]);
     }
 
-    
+    public function getLanguage()
+    {
+        $lang = Input::get('lang');
+        App::setLocale($lang);
+        Session::put('lang',$lang);
+        // echo App::getLocale();
+        // exit();
+        // if(Session::has('curent_lang')){
+        //     $lang = Session::get('current_lang');
+        //     App::setLocale($lang);
+        // }else{
+        //     $lang = Input::get('lang');
+        //     App::setLocale($lang);
+        // }
+        return redirect()->back();
+    }
 }

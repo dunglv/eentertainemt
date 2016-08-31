@@ -1,5 +1,6 @@
 <?php
 use App\Article;
+use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -15,10 +16,16 @@ use App\Article;
 // print_r(Route::has('article.detail')); 
 // echo '</pre>';
 // exit();
+
 Route::get('/', [
 	'as' => 'front.home',
 	'uses' => 'ArticleController@get_home_article'
 	]);
+Route::get('/change_language', [
+	'as' => 'front.lang',
+	'uses' => 'HomeController@getLanguage'
+	]);
+
 Route::get('/tag/{tag}', [
 	'as' => 'front.tag',
 	'uses' => 'HomeController@resultTag'
