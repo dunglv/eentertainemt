@@ -10,6 +10,7 @@
 					<div class="wrapper-post">
 						<div class="dt-top">
 							<div class="dt-created">
+							{{$article[0]->created_at->format('L')}}
 								<?php  $days = [
 										'Monday' => 'Thứ hai',
 										'Tuesday' => 'Thứ ba',
