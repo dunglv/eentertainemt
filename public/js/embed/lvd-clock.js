@@ -8,7 +8,7 @@ year =date_pk.getFullYear();
 hour = date_pk.getHours();
 minute = date_pk.getMinutes();
 seconds = date_pk.getSeconds();
-
+// Set Clock 
 function setClock() {
 	var clock = new Array();
 	if (seconds == 59) {
@@ -36,7 +36,6 @@ function setClock() {
 	}else{
 		seconds++;
 	}
-	console.log(week[dayOfWeek-1]+', '+day+'/'+month+'/'+year+' '+hour+':'+minute+':'+seconds);
 	clock['dayofweek'] = week[dayOfWeek-1];
 	clock['day'] = (day<10)?'0'+day:day;
 	clock['month'] = (month<10)?'0'+month:month;
@@ -50,9 +49,6 @@ function setClock() {
 	var wrapper = document.getElementById('lvd_clock');
 	var p1 = document.createElement('p');
 	var p2 = document.createElement('p');
-	wrapper.appendChild(p1);
-	wrapper.appendChild(p2);
-	var html = '';
 	setInterval(function(){
 		var clock = setClock();
 		// html = clock['dayofweek']+', '+clock['day']+'/'+clock['month']+'/'+clock['year'];

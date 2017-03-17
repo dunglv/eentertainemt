@@ -149,7 +149,7 @@
 						<div class="in-time">
 							<div class="wrap-time">
 								<div id="lvd_clock">
-									
+									Loading clock...
 								</div>
 							</div>
 						</div>
