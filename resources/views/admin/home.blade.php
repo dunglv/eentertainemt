@@ -25,5 +25,6 @@
         </main>
         @include('admin.footer')
     </div>
+    {!! HTML::script('js/embed/lvd-clock.js')!!}
 </body>
 </html>

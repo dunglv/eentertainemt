@@ -148,8 +148,9 @@
 					<div class="block ablock-time">
 						<div class="in-time">
 							<div class="wrap-time">
-								<p>Thứ 4, 10/10/2016</p>
-								<p>10:10:10 AM</p>
+								<div id="lvd_clock">
+									
+								</div>
 							</div>
 						</div>
 					</div>
