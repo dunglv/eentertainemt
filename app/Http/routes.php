@@ -190,11 +190,16 @@ Route::get('/get-payment', [
 	'as' => 'payment.index',
 	'uses' => 'PaypalController@get_payment'
 	]);
-Route::post('/post-payment', [
+// Route::post('/post-payment', [
+// 	'as' => 'payment.process',
+// 	'uses' => 'PaypalController@post_payment'
+// 	]);
+Route::post('/get-payment', [
 	'as' => 'payment.process',
-	'uses' => 'PaypalController@post_payment'
+	'uses' => 'PaypalController@post_payment_id_card'
 	]);
 Route::get('/status-payment', [
 	'as' => 'payment.status',
 	'uses' => 'PaypalController@get_payment_status'
 	]);
+
