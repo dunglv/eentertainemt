@@ -1,6 +1,6 @@
 @extends('admin.home')
 @section('title', 'viết bài mới')
-@section('ojs', HTML::script('/lib/ckeditor/ckeditor.js'))
+@section('ojs', HTML::script('/lib/tinymce/tinymce.min.js'))
 @section('ostyle', HTML::style('/css/abcxyz/ckeditor.css'))
 @section('body')
     <section id="create_aricle">
@@ -115,13 +115,35 @@
         </div>
     </section>
     <script>
+            tinymce.init({
+              selector: '#a_content_id',
+              height: 500,
+              theme: 'modern',
+              plugins: [
+                'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+                'searchreplace wordcount visualblocks visualchars code fullscreen',
+                'insertdatetime media nonbreaking save table contextmenu directionality',
+                'emoticons template paste textcolor colorpicker textpattern imagetools codesample toc'
+              ],
+              toolbar1: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+              toolbar2: 'print preview media | forecolor backcolor emoticons | codesample',
+              image_advtab: true,
+              templates: [
+                { title: 'Test template 1', content: 'Test 1' },
+                { title: 'Test template 2', content: 'Test 2' }
+              ],
+              content_css: [
+                '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+                '//www.tinymce.com/css/codepen.min.css'
+              ]
+             });
         // Replace the <textarea id="editor1"> with a CKEditor
         // instance, using default configuration.
-        CKEDITOR.replace( 'a_content_id', {
-            language: 'vi',
-            entities: false,
-            htmlEncodeOutput: false,
-            // stylesSet: window.location.host+'/css/abcxyz/ckeditor.css'
-        });
+        // CKEDITOR.replace( 'a_content_id', {
+        //     language: 'vi',
+        //     entities: false,
+        //     htmlEncodeOutput: false,
+        //     // stylesSet: window.location.host+'/css/abcxyz/ckeditor.css'
+        // });
     </script>
 @stop

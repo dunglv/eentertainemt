@@ -186,3 +186,15 @@ Route::get('/home', 'HomeController@index');
 // foreach ($routeCollection as $value) {
 //     echo $value->getPath().'<br>';
 // }
+Route::get('/get-payment', [
+	'as' => 'payment.index',
+	'uses' => 'PaypalController@get_payment'
+	]);
+Route::post('/post-payment', [
+	'as' => 'payment.process',
+	'uses' => 'PaypalController@post_payment'
+	]);
+Route::get('/status-payment', [
+	'as' => 'payment.status',
+	'uses' => 'PaypalController@get_payment_status'
+	]);

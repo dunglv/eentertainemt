@@ -1,7 +1,7 @@
-var day, month, year, hour, minute, seconds;
+var day, month, year, hour, minute, seconds, week, dayOfWeek;
 var date_pk = new Date();
 dayOfWeek = date_pk.getDay();
-week = ['Monday', 'Tuesday', 'Wednesday', 'Thurday', 'Friday', 'Saturday', 'Sunday'];
+week = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thurday', 'Friday', 'Saturday'];
 day = date_pk.getDate();
 month = date_pk.getMonth()+1;
 year =date_pk.getFullYear();
@@ -36,7 +36,7 @@ function setClock() {
 	}else{
 		seconds++;
 	}
-	clock['dayofweek'] = week[dayOfWeek-1];
+	clock['dayofweek'] = week[dayOfWeek];
 	clock['day'] = (day<10)?'0'+day:day;
 	clock['month'] = (month<10)?'0'+month:month;
 	clock['year'] = (year<10)?'0'+year:year;
@@ -49,13 +49,16 @@ function setClock() {
 	var wrapper = document.getElementById('lvd_clock');
 	var p1 = document.createElement('p');
 	var p2 = document.createElement('p');
-	setInterval(function(){
-		var clock = setClock();
-		// html = clock['dayofweek']+', '+clock['day']+'/'+clock['month']+'/'+clock['year'];
-		// p1.innerHTML = html;
-		// p2.innerHTML = clock['hour']+':'+clock['minute']+':'+clock['seconds'];
-		wrapper.innerHTML = '<p>'+ clock['dayofweek']+', '+clock['day']+'/'+clock['month']+'/'+clock['year']+'</p>'+'<p>'+clock['hour']+':'+clock['minute']+':'+clock['seconds']+'</p>';
-	}, 1000);
+	if (wrapper !== null) {
+		setInterval(function(){
+			var clock = setClock();
+			// html = clock['dayofweek']+', '+clock['day']+'/'+clock['month']+'/'+clock['year'];
+			// p1.innerHTML = html;
+			// p2.innerHTML = clock['hour']+':'+clock['minute']+':'+clock['seconds'];
+			wrapper.innerHTML = '<p>'+ clock['dayofweek']+', '+clock['day']+'/'+clock['month']+'/'+clock['year']+'</p>'+'<p>'+clock['hour']+':'+clock['minute']+':'+clock['seconds']+'</p>';
+		}, 1000);
+	}
+	
 
 	// var lvd_clock = document.createElement('div');
 	// lvd_clock.className = 'lvd-clock';
